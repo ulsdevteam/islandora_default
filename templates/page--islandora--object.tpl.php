@@ -17,19 +17,23 @@
     <?php print $messages; ?>
 
 <div id="two-col-left-main">
+ 		<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
+    <?php //print $breadcrumb; ?>
+  	<?php print render($title_prefix); ?>
+    <?php if ($title): ?><h1 class="item-title"><?php print $title; ?></h1><?php endif; ?>
+    <?php print render($title_suffix); ?>
 
-  <div>
+    <?php if ($action_links): ?>
+    	<ul class="action-links"><?php print render($action_links); ?></ul>
+			<?php endif; ?>
 
-    <?php print render($page['content']); ?>
+   <?php print render($page['content']); ?>
 
-
-
-
-    <div style="float:left">
-      <?php print render($page['islandora_object_sidebar']); ?>
-    </div>
-
-    </div>
+    <div id="col1">
+      <div class="widget">
+        <?php print render($page['islandora_object_sidebar']); ?>
+      </div><!-- /end widget -->
+    </div><!-- /end col1 -->
 
  <div id="footer">
   	<div id="footer-col1">

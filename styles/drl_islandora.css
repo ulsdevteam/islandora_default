@@ -11,10 +11,10 @@ body {
 	background-color: #fff;
 	}
 
-h3 { 
+h3 {
 	font-size: 1.5em;
 	}
-	
+
 ul {
 	list-style-type: none;
 	}
@@ -23,7 +23,7 @@ a {
 	text-decoration: none;
 	color: #405a71;
 	}
-	
+
 a:hover {
 	text-decoration: underline;
 	}
@@ -33,57 +33,54 @@ a:hover {
 	font-size: 75%;
 	font-weight: bold;
 	}
-	
+
 /*img, embed, object, video {
 	max-width: 100%;
 	}*/
 
 /* ________ PAGE COLUMNS AND PAGE WRAPPERS ________ */
-	
+
 #page-landing, #page-secondary {
 	padding: .5em 0;
 	width: 90%;
 	margin: 36px auto;
 	}
-	
+
 #one-col-main, #two-col-right-main, #two-col-left-main {
 	margin: -1.5em 0; /* changed top margin from +1em to -1.5em to tighten things up a bit --BTB 9/26/13 */
 	padding: .5em 0 0 0;
 	width: 100%;
 	font-size: 90%;
 	}
-	
-#col1 { 
+
+#col1 {
 	width: 27%;
 	float: left;
 	font-size: 90%;
-	margin-top: 5.1em;
-	margin-bottom: 1em;
 	min-width: 180px;
-	margin-right: 1em;
 	padding: 0 1% 0 0;
 	}
-	
-#col2 { 
+
+#col2 {
 	font-size: 90%;
 	width: 58%;
 	float: left;
 	padding-left: 0;
 	margin: 0 0 1.2% 0;
 	}
-	
+
 #two-col-left-main #col2 {
 	padding: 0 2em 0 0;
 	}
-	
+
 #one-col-main #col1 {
 	width: 100%;
 	}
-	
+
 #one-col-main #col1 img {
 	float: right;
 	}
-		
+
 .collection-wrapper, .news-wrapper {
 	border: 2px solid #c9d5d9;
 	margin-bottom: 2em;
@@ -92,7 +89,7 @@ a:hover {
 	padding: .4em .6em .8em .6em;
 	overflow: hidden;
 	}
-	
+
 /* ________ BANNER & PRIMARY NAVIGATION ________ */
 
 .banner img {
@@ -102,7 +99,7 @@ a:hover {
 .banner ul {
 	float: right;
 	}
-	
+
 .banner ul li {
 	list-style: none;
 	display: inline;
@@ -115,7 +112,7 @@ a:hover {
 	text-decoration: none;
 	color: #405a71;
 	}
-	
+
 #nav {
 	height: 1.8em;
 	margin: 0 0 2em 0;
@@ -136,7 +133,7 @@ a:hover {
 	margin: 0 0 0 -2.1em;
 	width: 100%;
 	}
-	
+
 .primary-nav li {
 	margin-right: -.2em;
 	padding: 0 1.2%;
@@ -146,35 +143,35 @@ a:hover {
 	font-size: 80%;
 	background: #fff;
 	}
-	
+
 #nav form {
 	float: right;
 	margin: -1.4em .2em 0 0;
 	font-size: 90%;
 	}
-	
+
 /* ________ SECONDARY NAVIGATION ________ */
 
 .breadcrumb {
 	margin-top: -.4em;
 	font-size: 70%;
 	}
-	
+
 .alphabetical-nav {
 	margin-left: -3em;
 	/*width: 120%;*/
 	}
-	
+
 .alphabetical-nav li {
 	display: inline;
 	text-transform: uppercase;
 	font-size: 90%;
 	}
-	
+
 .alphabetical-nav li a:hover {
 	background: #bccbd0;
 	}
-	
+
 /* ________ SIDEBARS & FOOTER ________ */
 
 .widget {
@@ -187,23 +184,23 @@ a:hover {
 	background: -o-linear-gradient(90deg, #bccbd0 15%, #e9edee 85%);
 	min-width: 100px;
 	}
-	
+
 .widget h3 {
 	margin-top: -.2em;
 	}
-	
+
 .widget .social-icons {
 	width: 70%;
 	}
-	
+
 .widget .social-icons li {
 	display: inline;
 	}
-	
+
 .news_hdr4 {
 	border-top: 1px solid #000;
 	}
-	
+
 #footer {
 	clear: both;
 	border: 1px solid #000;
@@ -224,13 +221,13 @@ a:hover {
 	width: 50%;
 	margin-top: .5em;
 	}
-	
+
 #footer-col2 {
-	float: right; 
+	float: right;
 	width: 50%;
 	margin-top: -1em;
 	}
-	
+
 #footer-col2 ul {
 	margin-top: -1em;
 	}
@@ -244,11 +241,11 @@ a:hover {
 .item-title {
 	margin-bottom: .1em;
 	}
-	
+
 /*.item-lg-thumb { /* large thumbnail image on single object view page */
 	/*max-width: 100%;*/
 	/*position: inherit;
-	
+
 	/*top: -1.8em;
 	left: -3.2em;*/
 	}
@@ -259,25 +256,25 @@ a:hover {
 
 #additions {
 	clear: both;
-	-webkit-box-shadow: 0 1px 1px #ccc; 
-   -moz-box-shadow: 0 1px 1px #ccc; 
-   box-shadow: 0 4px 4px #ccc;  
+	-webkit-box-shadow: 0 1px 1px #ccc;
+   -moz-box-shadow: 0 1px 1px #ccc;
+   box-shadow: 0 4px 4px #ccc;
 	 padding: .1em .6em;
 	}
 
 #additions img {
 	padding: .4em;
 	}
-	
+
 .contributions {
 	padding: .1em .6em;
 	background: #d0dadd
 	}
-	
+
 .li-no-list-type {
 	list-style-type: none;
 	}
-	
+
 .collection-wrapper img {
 	float: left;
 	/*-webkit-box-shadow: 5px 5px 11px rgba(0,0,0,0.42);
@@ -285,11 +282,11 @@ a:hover {
 	box-shadow: 5px 5px 11px rgba(0,0,0,0.42);*/
 	margin: .3em 1.6em .6em 0;
 	}
-	
+
 .collection-wrapper a {
 	font-weight: bold;
 	}
-	
+
 .collection-wrapper ul {
 	float: left;
 	margin: .3em 0 0 -2.7em;
@@ -298,11 +295,11 @@ a:hover {
 .collection-wrapper ul li {
 	width: 300px;
 	}
-	
+
 .fieldset-wrapper {
-	font-size: 80%;
+	font-size: 90%;
 	}
-	
+
 .news-wrapper h4 {
 	padding-bottom: .6em;
 	}
@@ -310,7 +307,7 @@ a:hover {
 #col2 p div {
 	float: left;
 	}
-	
+
 .creator-subtitle {
 	margin-top: -1em;
 	}
@@ -323,27 +320,27 @@ a:hover {
 #col2 div h4 {
 	margin-bottom: -.4em;
 	}
-	
+
 .p-reduced-top-margin {
 	margin-bottom: -.6em;
 	}
-	
+
 .taxonomy-widget {
 	margin: -1em 0 0 -.3em;
 	list-style: square;
 	}
-	
+
 table {
 	border-collapse: collapse; /* <= ie 7 */
 	border-spacing: 0;
 	width: 100%;
 	margin-top: 2em;
-	}	
+	}
 
 .bordered {
-  -webkit-box-shadow: 0 1px 1px #ccc; 
-  -moz-box-shadow: 0 1px 1px #ccc; 
-  box-shadow: 0 4px 4px #ccc;         
+  -webkit-box-shadow: 0 1px 1px #ccc;
+  -moz-box-shadow: 0 1px 1px #ccc;
+  box-shadow: 0 4px 4px #ccc;
 	}
 
 .bordered a:hover {
@@ -361,9 +358,9 @@ table {
   background-image:  -ms-linear-gradient(top, #e9edee, #bccbd0);
   background-image:  -o-linear-gradient(top, #e9edee, #bccbd0);
   background-image:  linear-gradient(top, #e9edee, #bccbd0);
-  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
-  -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
-  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+  -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;
+  box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
   border-top: none;
 	}
 
@@ -373,9 +370,9 @@ table {
   -webkit-transition: all 0.1s ease-in-out;
   -moz-transition: all 0.1s ease-in-out;
   -ms-transition: all 0.1s ease-in-out;
-  transition: all 0.1s ease-in-out;    
+  transition: all 0.1s ease-in-out;
 	}
-	
+
 .bordered td:first-child, .bordered th:first-child {
   border-left: none;
 	}
@@ -384,19 +381,19 @@ table {
 	text-align: center;
 	padding: .2em .1em;
 	}
-	
+
 .background_shading {
 	background: #d0dadd;
 	}
-	
+
 #islandora-solr-result-count { /* search count that shows up just under the Search results title on the search page */
 	margin-top: -1.6em;
 	}
-	
+
 #islandora-solr-top {
 	margin-bottom: -.3em; /* added 10/23 to shorten the space between the search count and the main column.*/
 	}
-	
+
 /* ________ MEDIA QUERIES ________ */
 
 @media screen and (max-width: 768px) {
@@ -410,28 +407,28 @@ table {
 	background: none;
 	width: 30%;
 	}
-	
+
 .primary-nav li {
 	background: #fff;
 	min-width: 90px;
 	}
-	
+
 #nav {
 		height: 12em;
 		margin: 0 0 2em 0;
 	}
-	
+
 .primary-nav a:hover {
 		text-decoration: none;
 	}
-	
+
 #nav form {
 		float: left;
 		margin: .8em 0 0 .5em;
 		font-size: 90%;
 	}
-	
-#col2 { 
+
+#col2 {
 		font-size: 80%;
 		width: 100%;
 		float: left;
@@ -439,21 +436,21 @@ table {
 		margin: 0 0 1em 0;
 	}
 }
-	
+
 /* ________ TEMPLATE SPECIFIC ________ */
 
 /* ________ islandora-solr-metadata-display.tpl ________ */
-	
+
 .metadata-label {
 	font-weight: bold;
 	}
-	
+
 .metadata-field {
 	margin-bottom: .4em;
 	}
-	
+
 /* ________ islandora-solr.tpl ________ */
-	
+
 .islandora-solr-search-result {
 	border: 1px solid #cad6d9;
 	padding: .4em;
@@ -470,33 +467,31 @@ table {
 
 /* ________ islandora-upitt-view.tpl ________ */
 
-#object-pg-left-col { 
+#object-pg-left-col {
 	font-size: 100%;
-	width: 44%;
+	width: 49%;
 	max-width: 500px;
 	float: left;
 	margin-top: 0;
 	margin-bottom: 1em;
-	margin-right: 2.8em;
 	}
-	
+
 #object-pg-left-col img {
 	max-width: 100%;
 	}
-		
-#object-pg-right-col { 
-	width: 42%;
-	float: left;
+
+#object-pg-right-col {
+	width: 49%;
+	float: right;
 	font-size: 100%;
 	margin-top: 0;
 	margin-bottom: 1em;
 	min-width: 180px;
-	margin-left: -2em;
 	padding-left: 0;
 	/*margin-right: 1em;*/
 	/*padding: 0 1% 0 0;*/
 	}
-	
+
 /* ________ Drupal/Islandora CSS overrides ________ */
 
 .pager {
@@ -506,20 +501,20 @@ table {
 .item-list .pager {
 	text-align: left;
 	}
-	
+
 .islandora-large-image-content {
 	margin-bottom: 2em;
 	}
-		
-		
+
+
 body.no-sidebars .islandora-large-image-content {
 	width: 100%;
 	}
-	
+
 .islandora-metadata {
 	margin-bottom: 3em;
 	}
-		
+
 /*body.no-sidebars .islandora-large-image-sidebar {
   clear: none;
   float: left;
@@ -534,16 +529,16 @@ body.no-sidebars .islandora-large-image-content {
 	background: -o-linear-gradient(90deg, #bccbd0 15%, #e9edee 85%);
 	min-width: 150px;
 	}*/
-	
+
 body.no-sidebars .islandora-large-image-sidebar ul li {
 	margin-left: -3em;
 	}
-	
+
 #clip {
 	display: block;
 	margin-bottom: .3em;
 	}
-	
+
 /* ________ EXPERIMENTATION ________ */
 
 .islandora-large-image-content { /* duplicated on line 436 */
