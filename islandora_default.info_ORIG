@@ -1,0 +1,30 @@
+name				= Islandora default
+description = An XHTML based theme that is responsive and to be used as the default theme for DRL/Islandora projects.
+core 				= 7.x
+screenshot	= screenshot.jpg
+
+; STYLES
+stylesheets[all][] 							= styles/normalize.css
+stylesheets[all][]							= styles/drl_islandora.css
+stylesheets[if lt IE 9][all][] 	= styles/ie.css
+
+; JS
+scripts[]	= js/modernizr.js
+
+; REGIONS
+;regions[featured] = Featured
+
+regions[banner] = Banner
+regions[nav] = Navigation
+regions[search] = Search
+regions[content] = Content
+;regions[col1] = Content column 1 (primary pg)
+;regions[col2] = Content column 2 (primary pg)
+regions[sidebar] = Sidebar
+regions[islandora_object_sidebar] = Islandora Object Sidebar
+;regions[social] = Social Icons
+regions[footer-col1] = Footer column 1
+regions[footer-col2] = Footer column 2
+regions[help] = Help
+regions[page_top] = Page Top
+regions[page_botton] = Page Bottom
