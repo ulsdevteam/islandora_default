@@ -6,29 +6,36 @@
       <!-- print banner region -->
         <?php print render($page['banner']); ?>
     </div><!-- /end banner -->
-    
+
    	<div id="nav">
 			<?php print theme('links__system_main_menu', array('links' => $main_menu, 'attributes' => array('class' => array('primary-nav')),)); ?>
       <div id="search">
         <?php print render($page['search']); ?>
       </div><!-- /end search -->
     </div><!-- /end nav -->
-    
+
     <?php print $messages; ?>
-  
-	<div id="one-col-main">
+
+	<div id="two-col-right-main">
   <?php //print $breadcrumb; ?>
-  <!--<p class="breadcrumb">HOME > COMMON PAGE</p>-->
-  <h5>Common pages are driven by page--node--common.tpl.php - this is meant for single column pages, e.g. About Us page (singular) - remove after theming is complete</h5>
-  <?php print render($title_prefix); ?>
+  <!--<p class="breadcrumb">HOME > <$PAGE_VARIABLE></p> -->
+  TEMPLATE #2 TEST
+  	<?php print render($title_prefix); ?>
     <?php if ($title): ?><h1><?php print $title; ?></h1><?php endif; ?>
-    <?php print render($title_suffix); ?> 
+    <?php print render($title_suffix); ?>
     <?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
     <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-    
-    <?php print render($page['content']); ?>
-  </div><!-- /end one-col-main -->
-	   <div id="footer">
+
+    <div id="col1">
+    	<div class="widget">
+        <?php print render($page['sidebar']); ?>
+     	</div><!-- /end widget -->
+    </div><!-- /end col1 -->
+
+    <div id="col2">
+    	<?php print render($page['content']); ?>
+  	</div><!-- /end col2 -->
+  <div id="footer">
   	<div id="footer-col1">
   		<?php print render($page['footer-col1']); ?>
     </div><!-- /end footer column 1 -->

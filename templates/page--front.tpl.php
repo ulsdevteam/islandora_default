@@ -28,6 +28,7 @@
       </div><!-- /end widget -->
     </div><!-- /end col1 -->
     <div id="col2">
+    FRONT TEMPLATE
     <?php print render($title_prefix); ?>
     <?php if ($title): ?><h1 class="landing-title"><?php print $title; ?></h1><?php endif; ?>
     <?php print render($title_suffix); ?>

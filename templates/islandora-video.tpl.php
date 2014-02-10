@@ -2,7 +2,7 @@
 
 /**
  * @file
- * This is the template file for the object page for large image
+ * This is the template file for the object page for video
  *
  * Available variables:
  * - $islandora_object: The Islandora object rendered in this template file
@@ -12,28 +12,24 @@
  * - $islandora_object_label: The sanitized object label.
  * - $parent_collections: An array containing parent collection(s) info.
  *   Includes collection object, label, url and rendered link.
- * - $islandora_thumbnail_img: A rendered thumbnail image.
- * - $islandora_content: A rendered image. By default this is the JPG datastream
- *   which is a medium sized image. Alternatively this could be a rendered
- *   viewer which displays the JP2 datastream image.
  *
- * @see template_preprocess_islandora_large_image()
- * @see theme_islandora_large_image()
+ * @see template_preprocess_islandora_video()
+ * @see theme_islandora_video()
  */
 ?>
-<div class="islandora-large-image-object islandora" vocab="http://schema.org/" prefix="dcterms: http://purl.org/dc/terms/" typeof="ImageObject">
-  <div class="islandora-large-image-content-wrapper clearfix">
+
+<div class="islandora-video-object islandora" vocab="http://schema.org/" prefix="dcterms: http://purl.org/dc/terms/" typeof="VideoObject">
+  <div class="islandora-video-content-wrapper clearfix">
     <?php if ($islandora_content): ?>
       <?php if (isset($metadata_link)): ?>
         <?php print $metadata_link; ?>
       <?php endif; ?>
-
-      <div class="islandora-large-image-content">
+      <div class="islandora-video-content">
         <?php print $islandora_content; ?>
       </div>
     <?php endif; ?>
   </div>
-  <div class="islandora-large-image-metadata">
+  <div class="islandora-video-metadata">
     <?php print $description; ?>
     <?php if ($parent_collections): ?>
       <div>
@@ -45,6 +41,6 @@
         </ul>
       </div>
     <?php endif; ?>
-    <?php //print $metadata; ?>
+    <?php print $metadata; ?>
   </div>
 </div>

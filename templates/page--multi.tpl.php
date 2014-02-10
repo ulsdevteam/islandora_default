@@ -15,14 +15,14 @@
   <?php //print $breadcrumb; ?>
   <!--<p class="breadcrumb">HOME > <$PAGE_VARIABLE></p>-->
   
-  <?php if ($tabs): ?>
-  <div class="tabs"><?php print render($tabs); ?></div>
-  <?php endif; ?>
-  <?php if ($action_links): ?>
+  <?php //if ($tabs): ?>
+  <div class="tabs"><?php //print render($tabs); ?></div>
+  <?php //endif; ?>
+  <?php //if ($action_links): ?>
   <ul class="action-links">
-    <?php print render($action_links); ?>
+    <?php //print render($action_links); ?>
   </ul>
-  <?php endif; ?>
+  <?php //endif; ?>
   <div id="col1">
     <div class="widget"> <?php print render($page['sidebar']); ?> </div>
     <!-- /end widget --> 
@@ -44,5 +44,3 @@
   <!-- /end footer --> 
 </div>
 <!-- /end page-secondary -->
-</body>
-</html>
