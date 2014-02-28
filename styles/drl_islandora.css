@@ -59,7 +59,7 @@ a:hover {
 	float: left;
 	font-size: 90%;
 	min-width: 180px;
-	padding: 0 1% 0 0;
+	padding: 0 2em 0 0;
 	}
 
 #col2 {
@@ -183,6 +183,7 @@ a:hover {
 	background: -moz-linear-gradient(90deg, #bccbd0 15%, #e9edee 85%);
 	background: -ms-linear-gradient(90deg, #bccbd0 15%, #e9edee 85%);
 	background: -o-linear-gradient(90deg, #bccbd0 15%, #e9edee 85%);
+	width: 100%;
 	min-width: 100px;
 	}
 
