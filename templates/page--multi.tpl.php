@@ -23,10 +23,7 @@
     <?php //print render($action_links); ?>
   </ul>
   <?php //endif; ?>
-  <div id="col1">
-    <div class="widget"> <?php print render($page['sidebar']); ?> </div>
-    <!-- /end widget --> 
-  </div>
+  
   <!-- /end col1 -->
   
   <div id="col2"> <?php print render($title_prefix); ?>

@@ -30,7 +30,7 @@ function islandora_default_preprocess_page(&$vars) {
       case 'partners':
       case 'places':
       case 'multi':
-        $vars['theme_hook_suggestions'][] = 'page__two';
+        $vars['theme_hook_suggestions'][] = 'page__two_col_left_main';
         break;
       default:
         break;
@@ -53,8 +53,8 @@ function islandora_default_islandora_internet_archive_bookreader_book_info(array
   $object = $variables['object'];
   $fields = islandora_internet_archive_bookreader_info_fields($object);
   $convert_to_string = function($o) {
-        return implode('<br/>', $o);
-      };
+      return implode('<br/>', $o);
+    };
   $fields = array_map($convert_to_string, $fields);
   $rows = array_map(NULL, array_keys($fields), array_values($fields));
   $content = theme('table', array(
@@ -67,6 +67,29 @@ function islandora_default_islandora_internet_archive_bookreader_book_info(array
     'sticky' => FALSE));
   return $content;
 }
+
+
+function islandora_default_preprocess_islandora_basic_collection_wrapper(&$variables) {
+  $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : NULL);
+  if ($islandora_object) {
+    if (isset($islandora_object['TN_LARGE'])) {
+      $collection_tn_url = url("islandora/object/{$islandora_object->id}/datastream/TN_LARGE/view");
+      $params = array(
+        'title' => $islandora_object->label,
+        'alt' => $islandora_object->label,
+        'path' => $collection_tn_url);
+      $variables['collection_img'] = theme('image', $params);
+    }
+    module_load_include('inc', 'islandora', 'includes/metadata');
+    $variables['collection_metadata'] = islandora_retrieve_metadata_markup($variables['islandora_object']);
+
+    if (isset($islandora_object['DESC'])) {
+      dsm('gggg');
+      $variables['collection_desc'] = $islandora_object['DESC']->content;
+    }
+  }
+}
+
 
 function islandora_default_preprocess(&$variables, $hook) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : (isset($variables['object']) ? $variables['object'] : NULL));

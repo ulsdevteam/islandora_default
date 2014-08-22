@@ -18,7 +18,6 @@
 
 <div id="two-col-left-main">
  		<?php if ($tabs): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-    <?php //print $breadcrumb; ?>
   	<?php print render($title_prefix); ?>
     <?php if ($title): ?><h1 class="item-title"><?php print $title; ?></h1><?php endif; ?>
     <?php print render($title_suffix); ?>
@@ -30,11 +29,12 @@
 
    <?php print render($page['content']); ?>
 
-    <div id="col1">
-      <div class="widget">
-        <?php print render($page['islandora_object_sidebar']); ?>
-      </div><!-- /end widget -->
-    </div><!-- /end col1 -->
+  <div id="sidebar">
+		<?php if ($page['sidebar']): ?>
+    <div class="widget"> <?php print render($page['sidebar']); ?> </div>
+    <!-- /end widget -->
+    <?php endif; ?>
+  </div><!-- /end sidebar -->
 
  <div id="footer">
   	<div id="footer-col1">
