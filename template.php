@@ -19,7 +19,7 @@ function islandora_default_preprocess_node(&$variables) {
   }
   } */
 
-function islandora_default_preprocess_page(&$vars) {
+/*function islandora_default_preprocess_page(&$vars) {
   $front = (isset($vars['is_front']) ? $vars['is_front'] : FALSE);
   $type = (isset($vars['node']->type) ? $vars['node']->type : NULL);
   if (!$front) {
@@ -30,13 +30,13 @@ function islandora_default_preprocess_page(&$vars) {
       case 'partners':
       case 'places':
       case 'multi':
-        $vars['theme_hook_suggestions'][] = 'page__two';
+        $vars['theme_hook_suggestions'][] = 'page__two_col_left_main';
         break;
       default:
         break;
     }
   }
-}
+} */
 
 function islandora_default_preprocess_html(&$vars) {
   $viewport = array(
@@ -53,8 +53,8 @@ function islandora_default_islandora_internet_archive_bookreader_book_info(array
   $object = $variables['object'];
   $fields = islandora_internet_archive_bookreader_info_fields($object);
   $convert_to_string = function($o) {
-        return implode('<br/>', $o);
-      };
+      return implode('<br/>', $o);
+    };
   $fields = array_map($convert_to_string, $fields);
   $rows = array_map(NULL, array_keys($fields), array_values($fields));
   $content = theme('table', array(
@@ -68,6 +68,33 @@ function islandora_default_islandora_internet_archive_bookreader_book_info(array
   return $content;
 }
 
+
+function islandora_default_preprocess_islandora_basic_collection_wrapper(&$variables) {
+  //dsm($variables, 'vars');
+  $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : NULL);
+  if ($islandora_object) {
+    $page_number = (empty($_GET['page'])) ? 0 : $_GET['page'];
+    $page_size = (empty($_GET['pagesize'])) ? variable_get('islandora_basic_collection_page_size', '10') : $_GET['pagesize'];
+    list($total_count, $results) = islandora_basic_collection_get_member_objects($islandora_object, $page_number, $page_size);
+    $variables['total_count'] = $total_count;
+    if (isset($islandora_object['TN_LARGE'])) {
+      $collection_tn_url = url("islandora/object/{$islandora_object->id}/datastream/TN_LARGE/view");
+      $params = array(
+        'title' => $islandora_object->label,
+        'alt' => $islandora_object->label,
+        'path' => $collection_tn_url);
+      $variables['collection_img'] = theme('image', $params);
+    }
+    module_load_include('inc', 'islandora', 'includes/metadata');
+    $variables['collection_metadata'] = islandora_retrieve_metadata_markup($variables['islandora_object']);
+
+    if (isset($islandora_object['DESC'])) {
+      $variables['collection_desc'] = $islandora_object['DESC']->content;
+    }
+  }
+}
+
+
 function islandora_default_preprocess(&$variables, $hook) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : (isset($variables['object']) ? $variables['object'] : NULL));
   if (isset($islandora_object->id)) {
@@ -78,7 +105,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_book_book':
       case 'islandora_pdf':
       case 'islandora_video':
-        $variables['metadata_link'] = l(t("return to object page"), "islandora/object/{$islandora_object->id}");
+        $variables['metadata_link'] = l(t("Return to item description"), "islandora/object/{$islandora_object->id}");
         break;
       default:
         break;
