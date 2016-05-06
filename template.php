@@ -107,6 +107,10 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_video':
         $variables['metadata_link'] = l(t("Return to item description"), "islandora/object/{$islandora_object->id}");
         break;
+      case 'islandora_manuscript_ead_display':
+        $variables['xslt_doc'] = $xslt_doc = new DOMDocument();
+        $xslt_doc->load(drupal_get_path('theme', 'islandora_default') . '/transforms/ead_to_html.xslt');
+        break;
       default:
         break;
     }
