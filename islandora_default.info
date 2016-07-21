@@ -6,7 +6,7 @@ screenshot	= screenshot.jpg
 ; STYLES
 stylesheets[all][] 							= styles/normalize.css
 stylesheets[all][]							= styles/drl_islandora.css
-stylesheets[if lt IE 9][all][] 	= styles/ie.css
+stylesheets[if lt IE 9][] 	= styles/ie.css
 
 ; JS
 scripts[]	= js/modernizr.js
