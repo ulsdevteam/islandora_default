@@ -38,6 +38,39 @@ function islandora_default_preprocess_node(&$variables) {
   }
 } */
 
+/**
+ * Implements hook_breadcrumb().
+ *
+ * This code will remove unwanted elements of the breadcrumbs variable.
+ */
+function islandora_default_breadcrumb($vars) {
+  $islandora_object = menu_get_object('islandora_object', 2);
+  $is_collection = (is_object($islandora_object) && (array_search('islandora:collectionCModel', $islandora_object->models) === FALSE));
+
+  //  $item = menu_get_item();
+  //  if (is_array($item)) { }
+  // dpm($_GET);
+  // dpm($_SERVER['REQUEST_URI']);
+  // dpm('is_collection = ' . ($is_collection ? 'TRUE' : 'FALSE'));
+
+  if (!empty($vars['breadcrumb'])) {
+    $crumbs = array();
+
+    foreach($vars['breadcrumb'] as $idx=>$value) {
+      if (strstr($value, 'Islandora Repository') || strstr($value, 'Pitt Collections (Root)')) {
+      }
+      else {
+        // This would prevent a breadcrumb for values like info\:fedora/pitt\:
+        if (strstr($value, "info\\:fedora/pitt\\:", $value)) {
+          $value = str_replace(">info\\:fedora/", ">", $value);
+        }
+        $crumbs[] = ''.$value.'';
+      }
+    }
+  }
+  return implode(" &raquo; ", $crumbs);
+}
+
 function islandora_default_preprocess_html(&$vars) {
   $viewport = array(
     '#tag' => 'meta',
@@ -87,10 +120,6 @@ function islandora_default_preprocess_islandora_basic_collection_wrapper(&$varia
     }
     module_load_include('inc', 'islandora', 'includes/metadata');
     $variables['collection_metadata'] = islandora_retrieve_metadata_markup($variables['islandora_object']);
-
-    if (isset($islandora_object['DESC'])) {
-      $variables['collection_desc'] = $islandora_object['DESC']->content;
-    }
   }
 }
 
@@ -116,5 +145,3 @@ function islandora_default_preprocess(&$variables, $hook) {
     }
   }
 }
-
-?>
