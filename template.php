@@ -1,4 +1,5 @@
 <?php
+//test change
 
 // this removes the Read More link on the front page
 function islandora_default_preprocess_node(&$variables) {
