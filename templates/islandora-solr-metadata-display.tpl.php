@@ -15,6 +15,7 @@
  */
 ?>
 
+<?php if (count($solr_fields) > 0) : ?>
 <fieldset <?php $print ? print('class="islandora islandora-metadata"') : print('class="islandora islandora-metadata"');?>>
   <legend><span class="fieldset-legend">
   </span></legend>
@@ -29,3 +30,4 @@
     </ul>
   </div>
 </fieldset>
+<?php endif; ?>

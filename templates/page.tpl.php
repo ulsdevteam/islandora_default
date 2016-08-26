@@ -25,18 +25,19 @@
     <?php print render($action_links); ?>
   </ul>
   <?php endif; ?>
-  <div id="sidebar">
-  	<?php if ($page['sidebar']): ?>
-    <div class="widget">
-      <?php print render($page['sidebar']); ?> </div>
-    <?php endif; ?><!-- /end widget --> 
-  </div><!-- /end sidebar -->
   
-  <div id="main-content"> <?php print render($title_prefix); ?>
+  <div id="content"> <?php print render($title_prefix); ?>
     <?php if ($title): ?>
     <h1><?php print $title; ?></h1>
     <?php endif; ?>
     <div class="content-wrapper"> <?php print render($page['content']); ?> </div>
+      <div id="metadata-sidebar">
+        <?php if ($page['sidebar']): ?>
+        <div class="widget">
+          <?php print render($page['sidebar']); ?> </div>
+        <?php endif; ?><!-- /end widget -->
+      </div><!-- /end sidebar -->
+
     <!-- /end content-wrapper --> 
   </div>
   <!-- /end main-content -->

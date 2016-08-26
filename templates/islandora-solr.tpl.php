@@ -28,7 +28,7 @@
     <!-- Metadata -->
     <ul>
       <?php foreach($result['solr_doc'] as $key => $value): ?>
-      <li> <?php print $value['value']; ?> </li>
+      <li><div class="solr-label"><?php print $value['label']; ?></div><?php print $value['value']; ?> </li>
       <?php endforeach; ?>
       <?php $row_result++; ?>
     </ul>
