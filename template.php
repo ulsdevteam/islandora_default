@@ -38,38 +38,49 @@ function islandora_default_preprocess_node(&$variables) {
   }
 } */
 
-/**
- * Implements hook_breadcrumb().
- *
- * This code will remove unwanted elements of the breadcrumbs variable.
- */
-function islandora_default_breadcrumb($vars) {
-  $islandora_object = menu_get_object('islandora_object', 2);
-  $is_collection = (is_object($islandora_object) && (array_search('islandora:collectionCModel', $islandora_object->models) === FALSE));
+function islandora_default_breadcrumb($variables) {
+  // need the _format_collection_url() function 
+  module_load_include('module', 'upitt_islandora_solr_search_extras');
 
-  //  $item = menu_get_item();
-  //  if (is_array($item)) { }
-  // dpm($_GET);
-  // dpm($_SERVER['REQUEST_URI']);
-  // dpm('is_collection = ' . ($is_collection ? 'TRUE' : 'FALSE'));
+  $breadcrumb = $variables['breadcrumb'];
 
-  if (!empty($vars['breadcrumb'])) {
+  if (!empty($breadcrumb)) {
     $crumbs = array();
-
-    foreach($vars['breadcrumb'] as $idx=>$value) {
-      if (strstr($value, 'Islandora Repository') || strstr($value, 'Pitt Collections (Root)')) {
+    $item = menu_get_item();
+    foreach($breadcrumb as $value) {
+      if (strstr($value, 'Pitt Collections (Root)') || strstr($value, 'Islandora Repository') || 
+        strstr($value, 'RELS_EXT_isViewableByRole_literal_ms:') || strstr($value, 'PID:(pitt*)') ||
+        strstr($value, '>pitt*<') ) {
+      }
+      elseif (strstr($value, ':collection.') && (($item['path'] == 'islandora/search_collection/%/%') || ($item['path'] == 'islandora/search_collection/%'))) {
       }
       else {
-        // This would prevent a breadcrumb for values like info\:fedora/pitt\:
-        if (strstr($value, "info\\:fedora/pitt\\:", $value)) {
-          $value = str_replace(">info\\:fedora/", ">", $value);
+        // Get the href from the breadcrumb and look for a colon -- if that splits to a PID that is a 
+        // Collection object, then rewrite the URL for the breadcrumb.
+        preg_match('/^<a.*?href=(["\'])(.*?)\1.*$/', $value, $m);
+        if (count($m) > 1) {
+          $url = urldecode($m[2]);
+          $pid_tmp = str_replace('/islandora/object/', '', $url);
+          @list($pid_tmp, $junk) = explode("?", $pid_tmp);
+          @list($pid, $junk) = explode("/", $pid_tmp);
+          $collection_object = islandora_object_load($pid);
+          if (is_object($collection_object) && strstr($url, ':collection.') && strstr($url, '/islandora/object/')) {
+            // Set attributes variable.
+            $attr = array(
+              'title' => strip_tags($value),
+              'rel' => 'nofollow',
+              'href' => '/' . _format_collection_url($collection_object->label, true),
+            );
+            $value = '<a' . drupal_attributes($attr) . '>' . $attr['title'] . '</a>';
+          }
         }
         $crumbs[] = ''.$value.'';
       }
     }
+    return implode(" &raquo; ", $crumbs);
   }
-  return implode(" &raquo; ", $crumbs);
 }
+
 
 function islandora_default_preprocess_html(&$vars) {
   $viewport = array(
@@ -134,7 +145,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_book_book':
       case 'islandora_pdf':
       case 'islandora_video':
-        $variables['metadata_link'] = l(t("Return to item description"), "islandora/object/{$islandora_object->id}");
+        $variables['metadata_link'] = l(t("Go to item description"), "islandora/object/{$islandora_object->id}");
         break;
       case 'islandora_manuscript_ead_display':
         $variables['xslt_doc'] = $xslt_doc = new DOMDocument();
@@ -145,3 +156,10 @@ function islandora_default_preprocess(&$variables, $hook) {
     }
   }
 }
+
+function _theme_format_collection_url($fedora_label) {
+  $strip_chars = array('.', ',', '/', '\'', '"');
+  $strip_words = array(' and ', ' the ', ' to ');
+  return ($fedora_label) ? '/collection/' . str_replace($strip_chars, '', urldecode(str_replace("+", "-", urlencode(str_replace($strip_words, " ", strtolower(trim($fedora_label))))))) : '';
+}
+

@@ -17,10 +17,10 @@
   <div class="islandora-basic-collection-metadata-image"> <?php print $collection_img; ?> </div>
   <?php endif; ?>
 
-  <?php if ($collection_desc): ?>
-  <!--<p>using the desc datastream</p>-->
-  <div class="islandora-basic-collection-metadata-desc"> <?php print $collection_desc; ?> </div>
-  <?php endif; ?>
+  <?php
+        $block = module_invoke('islandora_datastream_blocks', 'block_view', 'idb-DESC');
+        print render($block['content']);
+  ?>
   <div class="islandora-basic-collection clearfix"> <span class="islandora-basic-collection-display-switch">
     <ul class="links inline">
       <?php foreach ($view_links as $link): ?>
