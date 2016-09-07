@@ -16,7 +16,6 @@
 <?php print $messages; ?>
 <div id="two-col-right-main">
 
-
   <?php if ($tabs): ?>
   <div class="tabs"><?php print render($tabs); ?></div>
   <?php endif; ?>

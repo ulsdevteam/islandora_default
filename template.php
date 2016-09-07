@@ -1,4 +1,5 @@
 <?php
+//test change
 
 // this removes the Read More link on the front page
 function islandora_default_preprocess_node(&$variables) {
@@ -121,14 +122,19 @@ function islandora_default_preprocess_islandora_basic_collection_wrapper(&$varia
     $page_size = (empty($_GET['pagesize'])) ? variable_get('islandora_basic_collection_page_size', '10') : $_GET['pagesize'];
     list($total_count, $results) = islandora_basic_collection_get_member_objects($islandora_object, $page_number, $page_size);
     $variables['total_count'] = $total_count;
+
+    $collection_tn_url = '';
     if (isset($islandora_object['TN_LARGE'])) {
       $collection_tn_url = url("islandora/object/{$islandora_object->id}/datastream/TN_LARGE/view");
-      $params = array(
-        'title' => $islandora_object->label,
-        'alt' => $islandora_object->label,
-        'path' => $collection_tn_url);
-      $variables['collection_img'] = theme('image', $params);
+    } elseif (isset($islandora_object['TN'])) {
+      $collection_tn_url = url("islandora/object/{$islandora_object->id}/datastream/TN/view");
     }
+    $params = array(
+      'title' => $islandora_object->label,
+      'alt' => $islandora_object->label,
+      'path' => $collection_tn_url);
+    $variables['collection_img'] = ($collection_tn_url) ? theme('image', $params) : '';
+
     module_load_include('inc', 'islandora', 'includes/metadata');
     $variables['collection_metadata'] = islandora_retrieve_metadata_markup($variables['islandora_object']);
   }
@@ -156,10 +162,3 @@ function islandora_default_preprocess(&$variables, $hook) {
     }
   }
 }
-
-function _theme_format_collection_url($fedora_label) {
-  $strip_chars = array('.', ',', '/', '\'', '"');
-  $strip_words = array(' and ', ' the ', ' to ');
-  return ($fedora_label) ? '/collection/' . str_replace($strip_chars, '', urldecode(str_replace("+", "-", urlencode(str_replace($strip_words, " ", strtolower(trim($fedora_label))))))) : '';
-}
-
