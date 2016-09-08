@@ -50,6 +50,7 @@ function islandora_default_breadcrumb($variables) {
     $item = menu_get_item();
     foreach($breadcrumb as $value) {
       if (strstr($value, 'Pitt Collections (Root)') || strstr($value, 'Islandora Repository') || 
+        (strip_tags($value) == '...') ||
         strstr($value, 'RELS_EXT_isViewableByRole_literal_ms:') || strstr($value, 'PID:(pitt*)') ||
         strstr($value, '>pitt*<') ) {
       }
