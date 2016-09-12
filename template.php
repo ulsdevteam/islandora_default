@@ -39,6 +39,51 @@ function islandora_default_preprocess_node(&$variables) {
   }
 } */
 
+function islandora_default_breadcrumb($variables) {
+  // need the _format_collection_url() function 
+  module_load_include('module', 'upitt_islandora_solr_search_extras');
+
+  $breadcrumb = $variables['breadcrumb'];
+
+  if (!empty($breadcrumb)) {
+    $crumbs = array();
+    $item = menu_get_item();
+    foreach($breadcrumb as $value) {
+      if (strstr($value, 'Pitt Collections (Root)') || strstr($value, 'Islandora Repository') || 
+        (strip_tags($value) == '...') ||
+        strstr($value, 'RELS_EXT_isViewableByRole_literal_ms:') || strstr($value, 'PID:(pitt*)') ||
+        strstr($value, '>pitt*<') ) {
+      }
+      elseif (strstr($value, ':collection.') && (($item['path'] == 'islandora/search_collection/%/%') || ($item['path'] == 'islandora/search_collection/%'))) {
+      }
+      else {
+        // Get the href from the breadcrumb and look for a colon -- if that splits to a PID that is a 
+        // Collection object, then rewrite the URL for the breadcrumb.
+        preg_match('/^<a.*?href=(["\'])(.*?)\1.*$/', $value, $m);
+        if (count($m) > 1) {
+          $url = urldecode($m[2]);
+          $pid_tmp = str_replace('/islandora/object/', '', $url);
+          @list($pid_tmp, $junk) = explode("?", $pid_tmp);
+          @list($pid, $junk) = explode("/", $pid_tmp);
+          $collection_object = islandora_object_load($pid);
+          if (is_object($collection_object) && strstr($url, ':collection.') && strstr($url, '/islandora/object/')) {
+            // Set attributes variable.
+            $attr = array(
+              'title' => strip_tags($value),
+              'rel' => 'nofollow',
+              'href' => '/' . _format_collection_url($collection_object->label, true),
+            );
+            $value = '<a' . drupal_attributes($attr) . '>' . $attr['title'] . '</a>';
+          }
+        }
+        $crumbs[] = ''.$value.'';
+      }
+    }
+    return implode(" &raquo; ", $crumbs);
+  }
+}
+
+
 function islandora_default_preprocess_html(&$vars) {
   $viewport = array(
     '#tag' => 'meta',

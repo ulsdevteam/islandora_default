@@ -15,7 +15,7 @@
   <div<?php if ($classes_array[$id]) { print ' class="' . $classes_array[$id] .'"';  } ?>>
     <?php print $row; ?>
   </div>
-  <?php if ($collection_metadata): ?>
+  <?php if (isset($collection_metadata)): ?>
   <?php print $collection_metadata; ?>
   <?php endif; ?>
 </div><!-- /end collection-wrapper -->
