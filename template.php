@@ -107,7 +107,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_book_book':
       case 'islandora_pdf':
       case 'islandora_video':
-        $variables['metadata_link'] = l(t("Return to item description"), "islandora/object/{$islandora_object->id}");
+        $variables['metadata_link'] = l(t("Go to item description"), "islandora/object/{$islandora_object->id}");
         break;
       case 'islandora_manuscript_ead_display':
         $variables['xslt_doc'] = $xslt_doc = new DOMDocument();
