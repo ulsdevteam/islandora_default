@@ -12,7 +12,7 @@
   <div class="islandora-pdf-content-wrapper clearfix">
     <?php if (isset($islandora_content)): ?>
       <?php if (isset($metadata_link)): ?>
-        <?php print $metadata_link; ?>
+        <p><?php print $metadata_link; ?></p>
       <?php endif; ?>
       <div class="islandora-pdf-content">
         <?php print $islandora_content; ?>
