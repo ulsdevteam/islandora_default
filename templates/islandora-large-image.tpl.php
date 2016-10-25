@@ -25,7 +25,7 @@
   <div class="islandora-large-image-content-wrapper clearfix">
     <?php if ($islandora_content): ?>
       <?php if (isset($metadata_link)): ?>
-        <?php print $metadata_link; ?>
+        <p><?php print $metadata_link; ?></p>
       <?php endif; ?>
 
       <div class="islandora-large-image-content">
