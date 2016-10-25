@@ -365,6 +365,14 @@ table {
 	margin-bottom: -.3em; /* added 10/23 to shorten the space between the search count and the main column.*/
 	}
 
+/* _______  FINDING AIDS  ________ */
+.ead .fieldset-wrapper {
+        margin-left: 0;
+}
+
+html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {
+	height: 1em;
+}
 
 /* ________ MEDIA QUERIES ________ */
 
