@@ -365,6 +365,14 @@ table {
 	margin-bottom: -.3em; /* added 10/23 to shorten the space between the search count and the main column.*/
 	}
 
+/* _____ BOOKREADER _____ */
+.search div.query em {
+  color: black;
+  font-weight: 700;
+  padding: 1px;
+  background-color: #C8C8FC;
+}
+
 /* _______  FINDING AIDS  ________ */
 .ead .fieldset-wrapper {
         margin-left: 0;
