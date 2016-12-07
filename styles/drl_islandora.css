@@ -378,6 +378,11 @@ table {
         margin-left: 0;
 }
 
+.containerList td, .parentContainers td { border: none }
+.containerList {
+  font-size: 1.4em;
+}
+
 html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {
 	height: 1em;
 }
