@@ -913,7 +913,9 @@
     <xsl:template match="ead:dao">
         <xsl:choose>
             <xsl:when test="child::*">
-                <xsl:apply-templates/>
+                <!-- BAD BAD this call to apply-templates is adding all kinds of extra stuff in the table cell that I don't want 
+   xsl:apply-templates/ -->
+<xsl:apply-templates />
                    <a>
                       <xsl:attribute name="href">
                          <xsl:if test="string(number(@ns2:href)) != 'NaN'">
@@ -1612,8 +1614,6 @@
                 <xsl:if test="../@level != 'file'"> 
                      <xsl:apply-templates select="ead:unittitle"/>
                      <xsl:text>&#160;</xsl:text>
-<!--                </xsl:if> -->
-
                      <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
                          <xsl:apply-templates/>
                          <xsl:text>&#160;</xsl:text>
@@ -1639,4 +1639,3 @@
 
 
 </xsl:stylesheet>
-
