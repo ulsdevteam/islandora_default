@@ -22,7 +22,7 @@
   <div class="islandora-video-content-wrapper clearfix">
     <?php if ($islandora_content): ?>
       <?php if (isset($metadata_link)): ?>
-        <?php print $metadata_link; ?>
+        <p><?php print $metadata_link; ?></p>
       <?php endif; ?>
       <div class="islandora-video-content">
         <?php print $islandora_content; ?>

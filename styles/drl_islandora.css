@@ -374,6 +374,13 @@ table {
 
 #upitt-workflow-objectreport-form .fieldset-wrapper {
 	margin-left: 0;
+
+/* _____ BOOKREADER _____ */
+.search div.query em {
+  color: black;
+  font-weight: 700;
+  padding: 1px;
+  background-color: #C8C8FC;
 }
 
 /* _______  FINDING AIDS  ________ */
@@ -401,6 +408,9 @@ table {
 tr.subseries { margin-top: 10px; }
 .series td h4, .subseries td h4, .otherLevel td h4 {
 	font-size:16px;
+.containerList td, .parentContainers td { border: none }
+.containerList {
+  font-size: 1.4em;
 }
 
 html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {
