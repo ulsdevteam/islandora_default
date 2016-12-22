@@ -295,12 +295,8 @@
  
      <!-- Named template for a generic p element with a link back to the table of contents  -->
     <xsl:template name="returnTOC">
-<<<<<<< HEAD
-=======
-<!--
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
         <p class="returnTOC"><a href="#toc">Return to Table of Contents »</a></p>
-        <hr/> -->
+        <hr/>
     </xsl:template>
     <xsl:template match="ead:eadheader">
         <!-- since the islandora page is going to display the title, skip it here
@@ -924,15 +920,11 @@
             <xsl:when test="child::*">
                 <!-- BAD BAD this call to apply-templates is adding all kinds of extra stuff in the table cell that I don't want 
    xsl:apply-templates/ -->
-<<<<<<< HEAD
 <!-- <xsl:apply-templates />  -->
 <!-- BGG - call a php function here to test the value in the @ns2:href, if it is a good object, display a link to that object as 
            the rules determined, else display the text "(Online pending)" -->
                 <xsl:choose>
                     <xsl:when test="php:function('islandora_upitt_object_uri_if_exists', current()) = 'true'">
-=======
-<!-- <xsl:apply-templates />-->
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                    <a>
                       <xsl:attribute name="href">
                          <xsl:if test="string(number(@ns2:href)) != 'NaN'">
@@ -1425,25 +1417,16 @@
                     <tr class="{$colorClass}">
                         <td colspan="5">
 <!--                            <xsl:apply-templates select="ead:did" mode="dsc"/>  -->
-<<<<<<< HEAD
 <!-- BGG adding table back -->
                           <!--  <br class="clear"/> -->
                             <table class="parentContainers">
-=======
-<!--                            <br class="clear"/>
-                            <table class="parentContainers">-->
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                                 <xsl:for-each select="child::*/ead:container[@label]">
                                     <xsl:variable name="id" select="@id"/>
                                     <xsl:variable name="container" select="count(../ead:container[@parent = $id] | ../ead:container[@id = $id])"/>
                                     <tr class="containerTypes odd">
 <!--                                        <td>&#160;</td> -->
-<<<<<<< HEAD
 
                                         <td class="major_column">
-=======
-                                        <td>
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                                             <xsl:choose>
                                                 <xsl:when test="$container = ''"><xsl:attribute name="colspan">4</xsl:attribute></xsl:when>
                                                 <xsl:when test="$container = 1"><xsl:attribute name="colspan">4</xsl:attribute></xsl:when>
@@ -1468,7 +1451,6 @@
                                                 <xsl:when test="$container = 4"/>
                                                 <xsl:otherwise/>
                                             </xsl:choose>
-<<<<<<< HEAD
 
                                             <xsl:if test="../ead:unitid">
                                                 <xsl:value-of select="../ead:unitid"/>&#160;
@@ -1479,13 +1461,6 @@
                                             <xsl:value-of select="@label"/>
                                         </td>
 -->
-=======
-                                            <xsl:value-of select="../ead:unittitle"/>&#160;<xsl:value-of select="../ead:unitdate"/>
-                                        </td>
-<!-- was "Mixed materials"              <td>
-                                            <xsl:value-of select="@label"/>
-                                        </td>-->
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
 <!--                                        <td>
                                             <xsl:choose>
                                                 <xsl:when test="$container = ''"><xsl:attribute name="colspan">3</xsl:attribute></xsl:when>
@@ -1508,14 +1483,8 @@
                                     <tr>
                                         <td colspan="6">
                                     <xsl:for-each select="descendant-or-self::ead:dao">
-<<<<<<< HEAD
 
                                                <a>
-=======
-                                        <tr>
-                                            <td colspan="6">
-                                                <a>
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                                                     <xsl:attribute name="href">
                                                         <xsl:if test="string(number(@ns2:href)) != 'NaN'">
                                                             <xsl:text>/islandora/object/pitt:</xsl:text>
@@ -1524,7 +1493,6 @@
                                                     </xsl:attribute>
                                                     <xsl:value-of select="ead:daodesc"/>
                                                 </a> | <xsl:call-template name="containers-attributes"/>
-<<<<<<< HEAD
                                     </xsl:for-each>
                                         </td>
                                     </tr> 
@@ -1532,14 +1500,6 @@
                             </table>
 <!--                            <br class="clearfloat" /> -->
 
-=======
-                                            </td>
-                                        </tr>
-                                    </xsl:for-each>
-                                </xsl:if>
-<!--                            </table>
-                            <br class="clear"/>-->
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                             <xsl:apply-templates select="*[not(self::ead:did) and not(descendant-or-self::ead:dao) and
                                 not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
                                 not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
@@ -1601,10 +1561,7 @@
                             </tr>
                         </xsl:if>
                   </xsl:if> -->
-<<<<<<< HEAD
                     <!-- if the clevelMargin == "c03", apply a class that will indent the row -->
-=======
->>>>>>> 4e3bcdc51bceedb6cbcc7a69940ad2452df9aae2
                     <tr class="{$colorClass}"> 
                         <td class="{$clevelMargin}">
                             <xsl:choose>
