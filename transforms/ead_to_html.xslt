@@ -2,7 +2,8 @@
 <xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
     xmlns:ead="urn:isbn:1-931666-22-9"
-    xmlns:ns2="http://www.w3.org/1999/xlink">
+    xmlns:ns2="http://www.w3.org/1999/xlink"
+    xmlns:php="http://php.net/xsl">
     <!--
         *******************************************************************
         *                                                                 *
@@ -112,7 +113,7 @@
 
     <!-- This template creates a customizable header  -->
     <xsl:template name="header">
-        <div id="header">
+        <div id="ead_header">
             <div>
             <h3>
                 <xsl:value-of select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:publisher"/>
@@ -279,10 +280,10 @@
                         <dd><a><xsl:call-template name="tocLinks"/>
                             <xsl:choose>
                                 <xsl:when test="ead:head">
-                                    <xsl:apply-templates select="child::*/ead:head"/>        
+                                    <xsl:apply-templates select="child::*/ead:head"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text> <xsl:apply-templates select="child::*/ead:unittitle"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </a></dd>
@@ -293,7 +294,7 @@
     </xsl:template>
  
      <!-- Named template for a generic p element with a link back to the table of contents  -->
-    <xsl:template name="returnTOC">                
+    <xsl:template name="returnTOC">
         <p class="returnTOC"><a href="#toc">Return to Table of Contents »</a></p>
         <hr/>
     </xsl:template>
@@ -877,7 +878,9 @@
         </xsl:choose>
     </xsl:template>
     <xsl:template match="ead:head">
-        <h4><xsl:apply-templates/></h4>
+    	<xsl:if test="../../node()[@level] != 'file' and ../../node()[@level] != 'item'">
+        	<p><strong><xsl:apply-templates/></strong></p>
+	</xsl:if>
     </xsl:template>
     
     <!-- Digital Archival Object -->
@@ -911,9 +914,17 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="ead:dao">
+        <xsl:variable name="unittitle"><xsl:value-of select="../ead:did/ead:unittitle"/></xsl:variable>
+
         <xsl:choose>
             <xsl:when test="child::*">
-                <xsl:apply-templates/>
+                <!-- BAD BAD this call to apply-templates is adding all kinds of extra stuff in the table cell that I don't want 
+   xsl:apply-templates/ -->
+<!-- <xsl:apply-templates />  -->
+<!-- BGG - call a php function here to test the value in the @ns2:href, if it is a good object, display a link to that object as 
+           the rules determined, else display the text "(Online pending)" -->
+                <xsl:choose>
+                    <xsl:when test="php:function('islandora_upitt_object_uri_if_exists', current()) = 'true'">
                    <a>
                       <xsl:attribute name="href">
                          <xsl:if test="string(number(@ns2:href)) != 'NaN'">
@@ -921,8 +932,21 @@
                          </xsl:if>
                          <xsl:value-of select="@ns2:href" />
                       </xsl:attribute>
-                      <xsl:value-of select="@ns2:title"/>
+                      <xsl:choose>
+                         <xsl:when test="@ns2:title = $unittitle">
+                            <xsl:text>Online</xsl:text>
+                         </xsl:when>
+                         <xsl:otherwise>
+                            <xsl:value-of select="@ns2:title"/>
+                         </xsl:otherwise>
+                      </xsl:choose>
                    </a>
+                   <xsl:text> </xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <xsl:text>(Online pending)</xsl:text>
+                    </xsl:otherwise>
+                </xsl:choose>
             </xsl:when>
             <xsl:otherwise>
                 <a href="{@ns2:href}">
@@ -1196,12 +1220,14 @@
     <xsl:template match="ead:archdesc/ead:dsc">
         <xsl:choose>
             <xsl:when test="ead:head">
+                <!-- nothing matches this test -->
                 <xsl:apply-templates select="ead:head"/>
             </xsl:when>
             <xsl:otherwise>
                 <h3><xsl:call-template name="anchor"/>Collection Inventory</h3>
             </xsl:otherwise>
         </xsl:choose>
+<!-- BGG - THIS DOES NOT MAKE SENSE - all folder 1 content notes are rendered here -->
         <!-- Creates a table for container lists, defaults to 5 cells, for up to 4 container lists.  -->
         <table class="containerList">
             <xsl:apply-templates select="*[not(self::ead:head)]"/>
@@ -1246,6 +1272,7 @@
             </xsl:for-each>
         </xsl:for-each>
     </xsl:template>
+<!-- XXXX set a variable in the c01 block if there are no c02s so that the TOC is suppressed -->
     <xsl:template match="ead:c01">
         <xsl:call-template name="clevel"/>
         <xsl:for-each select="ead:c02">
@@ -1283,7 +1310,11 @@
         </xsl:for-each>
         <tr>
             <td colspan="5">
+<!-- XXXX -->
+<!-- check that variable here       <xsl:if test="parent::ead:c02"> -->
                 <xsl:call-template name="returnTOC"/>
+<!--       </xsl:if> -->
+
             </td>
         </tr>
     </xsl:template>
@@ -1385,15 +1416,17 @@
                 <xsl:when test="child::*/ead:container/@parent">
                     <tr class="{$colorClass}">
                         <td colspan="5">
-                            <xsl:apply-templates select="ead:did" mode="dsc"/> 
-                            <br class="clear"/>
+<!--                            <xsl:apply-templates select="ead:did" mode="dsc"/>  -->
+<!-- BGG adding table back -->
+                          <!--  <br class="clear"/> -->
                             <table class="parentContainers">
                                 <xsl:for-each select="child::*/ead:container[@label]">
                                     <xsl:variable name="id" select="@id"/>
                                     <xsl:variable name="container" select="count(../ead:container[@parent = $id] | ../ead:container[@id = $id])"/>
-                                    <tr class="containerTypes">
-                                        <td>&#160;</td>
-                                        <td>
+                                    <tr class="containerTypes odd">
+<!--                                        <td>&#160;</td> -->
+
+                                        <td class="major_column">
                                             <xsl:choose>
                                                 <xsl:when test="$container = ''"><xsl:attribute name="colspan">4</xsl:attribute></xsl:when>
                                                 <xsl:when test="$container = 1"><xsl:attribute name="colspan">4</xsl:attribute></xsl:when>
@@ -1405,13 +1438,10 @@
                                             &#160;
                                         </td>
                                         <xsl:for-each select="../ead:container[@parent = $id] | ../ead:container[@id = $id]">
-                                            <td><xsl:value-of select="@type"/></td>
+                                            <td><strong><xsl:value-of select="@type"/></strong></td>
                                         </xsl:for-each>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <xsl:value-of select="@label"/>
-                                        </td>
+                                    <tr class="odd">
                                         <td>
                                             <xsl:choose>
                                                 <xsl:when test="$container = ''"><xsl:attribute name="colspan">4</xsl:attribute></xsl:when>
@@ -1421,8 +1451,27 @@
                                                 <xsl:when test="$container = 4"/>
                                                 <xsl:otherwise/>
                                             </xsl:choose>
-                                            &#160;
+
+                                            <xsl:if test="../ead:unitid">
+                                                <xsl:value-of select="../ead:unitid"/>&#160;
+                                            </xsl:if>
+                                            <xsl:value-of select="../ead:unittitle"/>&#160;<xsl:value-of select="../ead:unitdate"/>
                                         </td>
+<!-- was "Mixed materials"              <td>
+                                            <xsl:value-of select="@label"/>
+                                        </td>
+-->
+<!--                                        <td>
+                                            <xsl:choose>
+                                                <xsl:when test="$container = ''"><xsl:attribute name="colspan">3</xsl:attribute></xsl:when>
+                                                <xsl:when test="$container = 1"><xsl:attribute name="colspan">3</xsl:attribute></xsl:when>
+                                                <xsl:when test="$container = 2"><xsl:attribute name="colspan">2</xsl:attribute></xsl:when>
+                                                <xsl:when test="$container = 3"><xsl:attribute name="colspan">1</xsl:attribute></xsl:when>
+                                                <xsl:when test="$container = 4"/>
+                                                <xsl:otherwise/>
+                                            </xsl:choose>
+                                            &#160;
+                                        </td> -->
                                         <xsl:for-each select="../ead:container[@parent = $id] | ../ead:container[@id = $id]">
                                             <td>
                                                <xsl:apply-templates/>
@@ -1430,13 +1479,12 @@
                                         </xsl:for-each>
                                     </tr>
                                 </xsl:for-each>
-                                <xsl:if test="descendant-or-self::ead:dao">
+<!--                                <xsl:if test="descendant-or-self::ead:dao">
+                                    <tr>
+                                        <td colspan="6">
                                     <xsl:for-each select="descendant-or-self::ead:dao">
-                                        <tr>
-                                            <td>Digital Object</td>
-                                            <td></td>
-                                            <td colspan="4">
-                                                <a>
+
+                                               <a>
                                                     <xsl:attribute name="href">
                                                         <xsl:if test="string(number(@ns2:href)) != 'NaN'">
                                                             <xsl:text>/islandora/object/pitt:</xsl:text>
@@ -1444,13 +1492,14 @@
                                                         <xsl:value-of select="@ns2:href" />
                                                     </xsl:attribute>
                                                     <xsl:value-of select="ead:daodesc"/>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                </a> | <xsl:call-template name="containers-attributes"/>
                                     </xsl:for-each>
-                                </xsl:if>
+                                        </td>
+                                    </tr> 
+                                </xsl:if> -->
                             </table>
-                            <br class="clear"/>
+<!--                            <br class="clearfloat" /> -->
+
                             <xsl:apply-templates select="*[not(self::ead:did) and not(descendant-or-self::ead:dao) and
                                 not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
                                 not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
@@ -1475,7 +1524,7 @@
                     <xsl:variable name="sibContainer3" select="string(preceding-sibling::*[1]/ead:did/ead:container[3]/@type)"/>
                     <xsl:variable name="sibContainer4" select="string(preceding-sibling::*[1]/ead:did/ead:container[4]/@type)"/>
                     <!-- Tests to see if current container type is different from previous container type, if it is a new row with container type headings is outout -->
-                    <xsl:if test="$container != $sibContainer or $container2 != $sibContainer2 or $container3 != $sibContainer3 or $container4 != $sibContainer4 or$containerCount != $sibContainerCount">
+<!--                    <xsl:if test="$container != $sibContainer or $container2 != $sibContainer2 or $container3 != $sibContainer3 or $container4 != $sibContainer4 or$containerCount != $sibContainerCount">
                         <xsl:if test="ead:did/ead:container">
                             <tr>
                                 <td class="title">
@@ -1510,8 +1559,9 @@
                                     </td>    
                                 </xsl:for-each>
                             </tr>
-                        </xsl:if> 
-                  </xsl:if>
+                        </xsl:if>
+                  </xsl:if> -->
+                    <!-- if the clevelMargin == "c03", apply a class that will indent the row -->
                     <tr class="{$colorClass}"> 
                         <td class="{$clevelMargin}">
                             <xsl:choose>
@@ -1549,7 +1599,7 @@
                                 <xsl:value-of select="."/>
                             </td>    
                         </xsl:for-each>
-                    </tr>  
+                    </tr>
                 </xsl:when>
                 <xsl:otherwise>
                     <tr class="{$colorClass}"> 
@@ -1577,11 +1627,22 @@
             </xsl:when>
             <!--Otherwise render the text in its normal font.-->
             <xsl:otherwise>
-                <p><xsl:call-template name="component-did-core"/></p>
+                <xsl:call-template name="component-did-core"/>
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
     <xsl:template name="component-did-core">
+        <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz'"/>
+        <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
+        <!--Inserts the parent container level attribute, like "series", "subseries", etc -->
+        <xsl:if test="../@level != 'file' and ../@level != 'otherlevel' and ../@level != 'item'">
+            <xsl:variable name="level" select="../@level"/>
+            <xsl:value-of select="concat(translate(substring($level,1,1), $vLower, $vUpper),
+              substring($level, 2),
+              substring(' ', 1 div not(position()=last()))
+             )"/>
+        </xsl:if>
+
         <!--Inserts unitid and a space if it exists in the markup.-->
         <xsl:if test="ead:unitid">
             <xsl:apply-templates select="ead:unitid"/>
@@ -1599,16 +1660,27 @@
                 <xsl:apply-templates select="ead:unittitle"/>
             </xsl:when>
             <!--This code process the elements when unitdate is not a child of untititle-->
-            <xsl:otherwise>
+            <xsl:otherwise> 
                 <xsl:apply-templates select="ead:unittitle"/>
-                <xsl:text>&#160;</xsl:text>
-                <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
-                    <xsl:apply-templates/>
-                    <xsl:text>&#160;</xsl:text>
-                </xsl:for-each>
-                <xsl:for-each select="ead:unitdate[@type = 'bulk']">
-                    (<xsl:apply-templates/>)
-                </xsl:for-each>
+                 <xsl:text>&#160;</xsl:text>
+                 <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
+                     <xsl:apply-templates/>
+                     <xsl:text>&#160;</xsl:text>
+                 </xsl:for-each>
+                 <xsl:for-each select="ead:unitdate[@type = 'bulk']">
+                     (<xsl:apply-templates/>)
+                 </xsl:for-each>
+<!--                <xsl:if test="../@level != 'file'"> 
+                     <xsl:apply-templates select="ead:unittitle"/>
+                     <xsl:text>&#160;</xsl:text>
+                     <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
+                         <xsl:apply-templates/>
+                         <xsl:text>&#160;</xsl:text>
+                     </xsl:for-each>
+                     <xsl:for-each select="ead:unitdate[@type = 'bulk']">
+                         (<xsl:apply-templates/>)
+                    </xsl:for-each>
+                </xsl:if> -->
             </xsl:otherwise>
         </xsl:choose>
         <xsl:if test="ead:physdesc">
@@ -1616,6 +1688,13 @@
             <xsl:apply-templates select="ead:physdesc"/>
         </xsl:if>
     </xsl:template>
+    <xsl:template name="containers-attributes">
+        <xsl:for-each select="../ead:container">
+            <xsl:value-of select="@type"/>:
+            <xsl:value-of select="."/>
+            <xsl:text> </xsl:text>
+        </xsl:for-each>
+    </xsl:template>
+
 
 </xsl:stylesheet>
-
