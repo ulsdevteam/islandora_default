@@ -378,9 +378,42 @@ table {
         margin-left: 0;
 }
 
-.containerList td, .parentContainers td { border: none }
+.major_column {
+	min-width: 76%;
+	width: 76%;
+}
+
+.parentContainers {
+	margin-bottom: 0 !important;
+}
+
+.parentContainers tr {
+	border-bottom: none;
+}
+
 .containerList {
-  font-size: 1.4em;
+	padding-left: 4px;
+}
+
+.containerList td, .parentContainers td { 
+	border: none;
+	font-size: 14px;
+	line-height: 16px;
+	padding: 2px 0;
+}
+.containerList p {
+	font-size: 14px;
+	margin: 5px 5px 10px 10px;
+}
+tr.subseries { margin-top: 10px; }
+
+.series td h4, .subseries td h4, .otherLevel td h4 {
+  font-size:16px;
+}
+
+.search-highlight {
+  background-color: #f7f9ab;
+  font-weight: bold;
 }
 
 html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {
@@ -514,6 +547,14 @@ html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .field
 	min-width: 180px;
 	padding-left: 0;
 	}
+
+/* _______ page__islandora__object.tpl.php ______*/
+.islandora-inline-metadata dt, .islandora-inline-metadata dd {
+	width:100%;
+}
+dl.islandora-object-fields {
+	margin-top: 0;
+}
 
 /* ________ Drupal/Islandora CSS overrides ________ */
 
