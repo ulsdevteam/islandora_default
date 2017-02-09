@@ -365,6 +365,16 @@ table {
 	margin-bottom: -.3em; /* added 10/23 to shorten the space between the search count and the main column.*/
 	}
 
+.report_table td, .report_table th {
+	padding: 0 5px;
+}
+.report_table tr {
+	padding: 0px;
+}
+
+#upitt-workflow-objectreport-form .fieldset-wrapper {
+	margin-left: 0;
+
 /* _____ BOOKREADER _____ */
 .search div.query em {
   color: black;
@@ -390,6 +400,24 @@ table {
 .parentContainers tr {
 	border-bottom: none;
 }
+
+.parentContainers {
+       margin-bottom: 0 !important;
+}
+
+.containerList td, .parentContainers td {
+       border: none;
+       font-size: 14px;
+       line-height: 16px;
+       padding: 2px 0;
+}
+
+.containerList p { font-size: 14px; }
+tr.subseries { margin-top: 10px; }
+.series td h4, .subseries td h4, .otherLevel td h4 {
+	font-size:16px;
+}
+.containerList td, .parentContainers td { border: none }
 
 .containerList {
 	padding-left: 4px;
