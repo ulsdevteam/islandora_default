@@ -1420,6 +1420,7 @@
 <!--                            <xsl:apply-templates select="ead:did" mode="dsc"/>  -->
 <!-- BGG adding table back -->
                           <!--  <br class="clear"/> -->
+<xsl:if test="count(child::*/ead:container[@label]) &gt; 0">
                             <table class="parentContainers">
                                 <xsl:for-each select="child::*/ead:container[@label]">
                                     <xsl:variable name="id" select="@id"/>
@@ -1499,6 +1500,8 @@
                                     </tr> 
                                 </xsl:if> -->
                             </table>
+
+</xsl:if>
 <!--                            <br class="clearfloat" /> -->
 
                             <xsl:apply-templates select="*[not(self::ead:did) and not(descendant-or-self::ead:dao) and
