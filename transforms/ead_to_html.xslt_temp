@@ -115,9 +115,9 @@
     <xsl:template name="header">
         <div id="ead_header">
             <div>
-            <h2>
+            <h3>
                 <xsl:value-of select="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:publisher"/>
-            </h2>
+            </h3>
             <!-- Adds repositry branding device, looks best if this is under 100px high. -->
              <xsl:if test="/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:p/ead:extref">
                  <img src="{/ead:ead/ead:eadheader/ead:filedesc/ead:publicationstmt/ead:p/ead:extref/@ns2:href}" />
@@ -341,7 +341,7 @@
             by changing the order of the following statements.-->
         <dl class="summary">
             <xsl:apply-templates select="ead:repository"/>
-            <xsl:apply-templates select="ead:unittitle"/>    
+            <xsl:apply-templates select="ead:unittitle"/>
             <xsl:apply-templates select="ead:origination"/>
             <xsl:apply-templates select="ead:unitid"/>
             <xsl:apply-templates select="ead:unitdate"/>
@@ -402,7 +402,7 @@
                         <xsl:when test="self::ead:physdesc">Extent</xsl:when>
                         <xsl:when test="self::ead:abstract">Abstract</xsl:when>
                         <xsl:when test="self::ead:physloc">Location</xsl:when>
-<!-- TEMPORARILY suppress the display of the Language title - until the matching language node is populated correctly in order to display. 
+<!-- TEMPORARILY suppress the display of the Language title - until the matching language node is populated correctly in order to display.
                         <xsl:when test="self::ead:langmaterial">Language</xsl:when> -->
                         <xsl:when test="self::ead:materialspec">Technical</xsl:when>
                         <xsl:when test="self::ead:container">Container</xsl:when>
@@ -1420,7 +1420,6 @@
 <!--                            <xsl:apply-templates select="ead:did" mode="dsc"/>  -->
 <!-- BGG adding table back -->
                           <!--  <br class="clear"/> -->
-<xsl:if test="count(child::*/ead:container[@label]) &gt; 0">
                             <table class="parentContainers">
                                 <xsl:for-each select="child::*/ead:container[@label]">
                                     <xsl:variable name="id" select="@id"/>
@@ -1500,13 +1499,9 @@
                                     </tr> 
                                 </xsl:if> -->
                             </table>
-
-</xsl:if>
 <!--                            <br class="clearfloat" /> -->
 
-<!-- BGG - removed the logic to apply a template if not the first folder.  previous code is below.
-                            <xsl:apply-templates select="*[not(self::ead:did) and not(descendant-or-self::ead:dao) and -->
-                            <xsl:apply-templates select="*[not(self::ead:did) and
+                            <xsl:apply-templates select="*[not(self::ead:did) and not(descendant-or-self::ead:dao) and
                                 not(self::ead:c) and not(self::ead:c02) and not(self::ead:c03) and
                                 not(self::ead:c04) and not(self::ead:c05) and not(self::ead:c06) and not(self::ead:c07)
                                 and not(self::ead:c08) and not(self::ead:c09) and not(self::ead:c10) and not(self::ead:c11) and not(self::ead:c12)]"/>
