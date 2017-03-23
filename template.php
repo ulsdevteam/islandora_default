@@ -153,6 +153,22 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_pdf':
       case 'islandora_video':
         $variables['metadata_link'] = l(t("Go to item description"), "islandora/object/{$islandora_object->id}");
+        if (count($variables['parent_collections'])) {
+          $site = islandora_default_get_site_from_config();
+          $tmp_parent_collections = $variables['parent_collections'];
+          foreach ($tmp_parent_collections as $k => $collection_object) { 
+            $keep_this_collection = FALSE;
+            $this_parent_object_sites_rel = $collection_object->relationships->get(NULL, 'isMemberOfSite');
+            foreach ($this_parent_object_sites_rel as $obj) {
+              if (!$keep_this_collection && isset($obj['object']['value']) && $obj['object']['value'] == $site) {
+                $keep_this_collection = TRUE;
+              }
+            }
+            if (!$keep_this_collection) {
+              unset($variables['parent_collections'][$k]);
+            }
+          }
+        }
         break;
       case 'islandora_manuscript_ead_display':
         $variables['xslt_doc'] = $xslt_doc = new DOMDocument();
@@ -163,3 +179,36 @@ function islandora_default_preprocess(&$variables, $hook) {
     }
   }
 }
+
+/**
+ * Helper function to derive the site value from the islandora_solr_base_filter value.  Does not handle more than
+ * one site value in the base filter.
+ */
+function islandora_default_get_site_from_config() {
+  $base_filter = variable_get('islandora_solr_base_filter');
+  // look for the value for RELS_EXT_isMemberOfSite_uri_ms
+  $and_filters = explode(" AND ", $base_filter);
+  $final_filters = array();
+  foreach ($and_filters as $exploded) {
+    $nl_exploded = explode("\r\n", $exploded);
+    if (is_array($nl_exploded)) {
+      foreach ($nl_exploded as $nl_element) {
+        $final_filters[] = trim($nl_element);
+      }
+    }
+    else {
+      $final_filters[] = $nl_exploded;
+    }
+  }
+  $found_filter = '';
+  foreach ($final_filters as $filter) {
+    if (strstr($filter, 'RELS_EXT_isMemberOfSite_uri_ms') <> '') {
+      $found_filter = $filter;
+    }
+  }
+  if ($found_filter) {
+    $site = stripslashes(str_replace(array('"', 'RELS_EXT_isMemberOfSite_uri_ms:'), '', $found_filter));
+    return str_replace("info:fedora/", "", $site);
+  }
+}
+
