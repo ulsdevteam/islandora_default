@@ -928,7 +928,14 @@
                     <xsl:when test="php:function('islandora_upitt_object_uri_if_exists', current()) = 'true'">
                    <a>
                       <xsl:attribute name="href">
-                         <xsl:if test="string(number(@ns2:href)) != 'NaN'">
+<!-- BGG - this test to see if it is a BARCODE needed to be modified so that any object value might be linked.  
+     For example, 31735044222671 could link before and become pitt:31735044222671, but values like DARIMG0005
+     would not link correctly - those links were actually appending to the current URI for the finding aid itself
+     like /islandora/object/pitt:US-PPiU-test001/DARIMG0005 instead of 
+     like /islandora/object/pitt:DARIMG0005 -->
+
+<!--                         <xsl:if test="string(number(@ns2:href)) != 'NaN'"> -->
+                         <xsl:if test="string(@ns2:href) != 'NaN'">
                              <xsl:text>/islandora/object/pitt:</xsl:text>
                          </xsl:if>
                          <xsl:value-of select="@ns2:href" />
