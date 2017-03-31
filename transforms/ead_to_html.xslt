@@ -915,7 +915,12 @@
         <xsl:apply-templates/>
     </xsl:template>
     <xsl:template match="ead:dao">
-        <xsl:variable name="unittitle"><xsl:value-of select="../ead:did/ead:unittitle"/></xsl:variable>
+<!--        <xsl:variable name="unittitle"><xsl:value-of select="../ead:did/ead:unittitle"/></xsl:variable> -->
+        <xsl:variable name="unittitle">
+          <xsl:call-template name="striptags">
+            <xsl:with-param name="letters" select="normalize-space(../ead:did/ead:unittitle)" />
+          </xsl:call-template>
+        </xsl:variable>
 
         <xsl:choose>
             <xsl:when test="child::*">
@@ -1644,6 +1649,22 @@
             </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <xsl:template name="striptags">
+        <xsl:param name="letters"/>
+            <xsl:choose>
+                <xsl:when test="contains($letters, '&lt;')">
+                    <xsl:value-of select="substring-before($letters, '&lt;')"/>
+                    <xsl:call-template name="striptags">
+                        <xsl:with-param name="letters" select="substring-after($letters, '&gt;')"/>
+                    </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+                <xsl:value-of select="$letters"/>
+            </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
+
     <xsl:template name="component-did-core">
         <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz'"/>
         <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
