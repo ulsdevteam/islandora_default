@@ -390,8 +390,6 @@ table {
 }
 
 .major_column {
-	min-width: 76%;
-	width: 76%;
 }
 
 .parentContainers {
@@ -443,6 +441,11 @@ tr.subseries { margin-top: 10px; }
 .search-highlight {
   background-color: #f7f9ab;
   font-weight: bold;
+}
+
+.td_wide {
+  width: 100px;
+  text-align: center;  
 }
 
 html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {

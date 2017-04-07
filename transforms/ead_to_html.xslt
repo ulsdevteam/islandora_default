@@ -1426,7 +1426,9 @@
                 </xsl:when>
                 
                 <!--Items/Files with multiple formats linked using parent and id attributes -->
-                <xsl:when test="child::*/ead:container/@parent">
+<!-- BGG - no longer require that the first container child has a parent attribute -->
+                <!-- <xsl:when test="child::*/ead:container/@parent"> -->
+                <xsl:when test="child::*/ead:container/@type and child::*/ead:container/@id">
                     <tr class="{$colorClass}">
                         <td colspan="5">
 <!--                            <xsl:apply-templates select="ead:did" mode="dsc"/>  -->
@@ -1452,7 +1454,7 @@
                                             &#160;
                                         </td>
                                         <xsl:for-each select="../ead:container[@parent = $id] | ../ead:container[@id = $id]">
-                                            <td><strong><xsl:value-of select="@type"/></strong></td>
+                                            <td class="td_wide"><strong><xsl:value-of select="@type"/></strong></td>
                                         </xsl:for-each>
                                     </tr>
                                     <tr class="odd">
@@ -1487,7 +1489,7 @@
                                             &#160;
                                         </td> -->
                                         <xsl:for-each select="../ead:container[@parent = $id] | ../ead:container[@id = $id]">
-                                            <td>
+                                            <td class="td_wide">
                                                <xsl:apply-templates/>
                                             </td>
                                         </xsl:for-each>
