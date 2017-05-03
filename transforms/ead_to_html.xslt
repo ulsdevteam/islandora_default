@@ -276,17 +276,28 @@
                     </xsl:if>
                     <!--Creates a submenu for collections, record groups and series and fonds-->
                     <xsl:for-each select="child::*[@level = 'collection'] 
-                        | child::*[@level = 'recordgrp']  | child::*[@level = 'series'] | child::*[@level = 'fonds']">
+                        | child::*[@level = 'recordgrp'] | child::*[@level = 'series'] | child::*[@level = 'fonds']">
                         <dd><a><xsl:call-template name="tocLinks"/>
                             <xsl:choose>
                                 <xsl:when test="ead:head">
                                     <xsl:apply-templates select="child::*/ead:head"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text> <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
+                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    <xsl:value-of select="child::*/ead:unitdate"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </a></dd>
+                                    <xsl:for-each select="child::*[@level = 'subseries']">
+                                      <dd class="extra-indent"><a><xsl:call-template name="tocLinks"/>
+                                        <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
+                                        <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                        <xsl:value-of select="child::*/ead:unitdate"/>
+                                      </a></dd>
+                                    </xsl:for-each>
+
+
                     </xsl:for-each>
                 </xsl:for-each>
             </dl>
@@ -1640,7 +1651,7 @@
         <xsl:choose>
             <xsl:when test="../@level='subcollection' or ../@level='subgrp' or ../@level='series' 
                 or ../@level='subseries'or ../@level='collection'or ../@level='fonds' or 
-                ../@level='recordgrp' or ../@level='subfonds'">    
+                ../@level='recordgrp' or ../@level='subfonds' or ../@level='otherlevel'">    
                 <h4>
                     <xsl:call-template name="component-did-core"/>
                 </h4>
