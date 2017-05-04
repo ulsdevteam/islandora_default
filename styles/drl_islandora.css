@@ -455,6 +455,10 @@ tr.subseries { margin-top: 10px; }
   padding-left: 20px;
 }
 
+#toc strong {
+  font-weight: normal;
+}
+
 html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .fieldset-legend {
 	height: 1em;
 }
