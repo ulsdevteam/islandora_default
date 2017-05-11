@@ -1650,7 +1650,7 @@
     <xsl:template match="ead:did" mode="dsc">
         <xsl:choose>
             <xsl:when test="../@level='subcollection' or ../@level='subgrp' or ../@level='series' 
-                or ../@level='subseries'or ../@level='collection'or ../@level='fonds' or 
+                or ../@level='subseries' or ../@level='collection' or ../@level='fonds' or 
                 ../@level='recordgrp' or ../@level='subfonds' or ../@level='otherlevel'">    
                 <h4>
                     <xsl:call-template name="component-did-core"/>
