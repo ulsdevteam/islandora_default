@@ -384,6 +384,10 @@ table {
   background-color: #C8C8FC;
 }
 
+.datastream-block {
+  clear: left;
+}
+
 /* _______  FINDING AIDS  ________ */
 .ead .fieldset-wrapper {
         margin-left: 0;
