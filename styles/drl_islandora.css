@@ -372,7 +372,7 @@ table {
 	padding: 0px;
 }
 
-#upitt-workflow-objectreport-form .fieldset-wrapper {
+#upitt-workflow-objectreport-form .fieldset-wrapper, #islandora-datastreams-io-relationships-form .fieldset-wrapper {
 	margin-left: 0;
 }
 
