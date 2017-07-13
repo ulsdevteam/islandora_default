@@ -39,6 +39,14 @@ function islandora_default_preprocess_node(&$variables) {
   }
 } */
 
+function islandora_default_preprocess_islandora_pdf(&$variables) {
+  $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : NULL);
+  // PDF instead of OBJ if possible
+  if (isset($islandora_object['PDF'])) {
+    $variables['islandora_content'] = l($variables['islandora_preview_img'], url("islandora/object/{$islandora_object->id}/datastream/PDF/view", array('absolute' => TRUE)), array('html' => TRUE));
+  }
+}
+
 function islandora_default_breadcrumb($variables) {
   // need the _format_collection_url() function 
   module_load_include('module', 'upitt_islandora_solr_search_extras');
@@ -144,6 +152,8 @@ function islandora_default_preprocess_islandora_basic_collection_wrapper(&$varia
 
 function islandora_default_preprocess(&$variables, $hook) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : (isset($variables['object']) ? $variables['object'] : NULL));
+
+
   if (isset($islandora_object->id)) {
     switch ($hook) {
       case 'islandora_large_image':
@@ -177,6 +187,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       default:
         break;
     }
+
   }
 }
 
@@ -210,5 +221,15 @@ function islandora_default_get_site_from_config() {
     $site = stripslashes(str_replace(array('"', 'RELS_EXT_isMemberOfSite_uri_ms:'), '', $found_filter));
     return str_replace("info:fedora/", "", $site);
   }
+}
+
+
+/**
+ * Implements hook_preprocess_theme().
+ *
+ */
+function islandora_default_preprocess_page(&$vars) {
+  // Load webtrends analytics for anonymous users for all pages using this theme
+  if (!user_is_logged_in()) { drupal_add_js('//pitt.edu/webtrends/webtrends.load.js', 'external'); };
 }
 
