@@ -275,7 +275,7 @@ a:hover {
 	}
 
 .fieldset-wrapper {
-	margin-left: -3em;
+	margin-left: 0em !important;
 	font-size: 90%;
 	}
 
@@ -597,7 +597,13 @@ html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .field
 
 /* _______ page__islandora__object.tpl.php ______*/
 .islandora-inline-metadata dt, .islandora-inline-metadata dd {
-	width:100%;
+	width:96%;
+}
+.islandora-inline-metadata dt {
+	padding-left:0px;
+}
+.islandora-inline-metadata dd {
+	padding-left:8px;
 }
 dl.islandora-object-fields {
 	margin-top: 0;
