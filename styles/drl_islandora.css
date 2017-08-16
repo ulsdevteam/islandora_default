@@ -603,6 +603,17 @@ dl.islandora-object-fields {
 	margin-top: 0;
 }
 
+/* _______ islandora-newspaper.tpl.php ______*/
+.newspaper-tiny-thumb {
+        float: right;
+}
+.islandora-newspaper-content .fieldset-wrapper {
+	margin-left: 0px !important;
+}
+.islandora-newspaper-content .fieldset-wrapper div {
+	clear: both;
+}
+
 /* ________ Drupal/Islandora CSS overrides ________ */
 
 .pager {

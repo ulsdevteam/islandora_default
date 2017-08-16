@@ -39,6 +39,38 @@ function islandora_default_preprocess_node(&$variables) {
   }
 } */
 
+function islandora_default_preprocess_islandora_newspaper_issue(&$variables) {
+  $variables['object_link'] = l('Go to item description', '/islandora/object/' . $variables['object']->id);
+}
+
+// This can be altered here to add a thumbnail for each issue.
+function islandora_default_preprocess_islandora_newspaper(&$variables) {
+  if (isset($variables['islandora_content_render_array']['tabs'])) {
+    foreach ($variables['islandora_content_render_array']['tabs'] as $tabkey_year => $year_tab_array) {
+      if ($tabkey_year <> '#type') {
+        foreach ($variables['islandora_content_render_array']['tabs'][$tabkey_year] as $tabkey_month => $month_tab_array) {
+          if ($tabkey_month <> '#type' && $tabkey_month <> '#title') {
+            foreach ($variables['islandora_content_render_array']['tabs'][$tabkey_year][$tabkey_month] as $tabkey_day => $day_tab_array) {
+              if ($tabkey_day <> '#attributes' && $tabkey_day <> '#title' && $tabkey_day <> '#type') {
+                foreach ($variables['islandora_content_render_array']['tabs'][$tabkey_year][$tabkey_month][$tabkey_day] as $tabkey_issue_idx => $day_issue_tab_array) {
+                  if (isset($day_issue_tab_array['#suffix'])) {
+                    $variables['islandora_content_render_array']['tabs'][$tabkey_year][$tabkey_month][$tabkey_day][$tabkey_issue_idx]['#suffix'] = 
+                      '<img class="newspaper-tiny-thumb" src="/' . $day_issue_tab_array['#path'] . '/datastream/TN/view" width="30"></div>';
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    $variables['islandora_content_copy'] = drupal_render($variables['islandora_content_render_array']);
+  }
+  else {
+    $variables['islandora_content_copy'] = $variables['islandora_content'];
+  }
+}
+
 function islandora_default_preprocess_islandora_pdf(&$variables) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : NULL);
   // PDF instead of OBJ if possible
