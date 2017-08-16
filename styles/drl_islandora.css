@@ -612,6 +612,7 @@ dl.islandora-object-fields {
 }
 .islandora-newspaper-content .fieldset-wrapper div {
 	clear: both;
+	padding: 1px;
 }
 
 /* ________ Drupal/Islandora CSS overrides ________ */

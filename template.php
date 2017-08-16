@@ -55,7 +55,7 @@ function islandora_default_preprocess_islandora_newspaper(&$variables) {
                 foreach ($variables['islandora_content_render_array']['tabs'][$tabkey_year][$tabkey_month][$tabkey_day] as $tabkey_issue_idx => $day_issue_tab_array) {
                   if (isset($day_issue_tab_array['#suffix'])) {
                     $variables['islandora_content_render_array']['tabs'][$tabkey_year][$tabkey_month][$tabkey_day][$tabkey_issue_idx]['#suffix'] = 
-                      '<img class="newspaper-tiny-thumb" src="/' . $day_issue_tab_array['#path'] . '/datastream/TN/view" width="30"></div>';
+                      '<a href="/' . $day_issue_tab_array['#path'] . '"><img class="newspaper-tiny-thumb" src="/' . $day_issue_tab_array['#path'] . '/datastream/TN/view" width="24"></a></div>';
                   }
                 }
               }
