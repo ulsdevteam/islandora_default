@@ -84,7 +84,7 @@
         <dt>Collections</dt>
         <dd>
           <?php foreach ($parent_collections as $collection): ?>
-            <div><?php print l($collection->label, "islandora/object/{$collection->id}"); ?></div>
+            <div><?php print l($collection->label, "islandora/search_collection/{$collection->id}"); ?></div>
           <?php endforeach; ?>
         </dd>
       <?php endif; ?>
