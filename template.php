@@ -182,9 +182,14 @@ function islandora_default_preprocess_islandora_basic_collection_wrapper(&$varia
 }
 
 
+function islandora_default_preprocess_islandora_newspaper_page_controls(&$variables) {
+  if (isset($variables['controls']) && isset($variables['controls']['tiff_download'])) {
+    unset($variables['controls']['tiff_download']);
+  }
+}
+
 function islandora_default_preprocess(&$variables, $hook) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : (isset($variables['object']) ? $variables['object'] : NULL));
-
 
   if (isset($islandora_object->id)) {
     switch ($hook) {
