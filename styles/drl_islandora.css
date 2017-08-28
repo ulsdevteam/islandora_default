@@ -384,6 +384,13 @@ table {
   background-color: #C8C8FC;
 }
 
+.BookReaderSearchHilite {
+    opacity: 0.25;
+    filter: alpha(opacity = 25);
+    background-color: #ff0;
+    padding: 1px;
+}
+
 .datastream-block {
   clear: left;
 }
