@@ -1683,11 +1683,11 @@
         <xsl:if test="../@level != 'file' and ../@level != 'otherlevel' and ../@level != 'item'">
             <xsl:variable name="level" select="../@level"/>
             <xsl:value-of select="concat(translate(substring($level,1,1), $vLower, $vUpper),
-              substring($level, 2),
-              substring(' ', 1 div not(position()=last()))
+              substring($level, 2)
              )"/>
         </xsl:if>
 
+        <xsl:text> </xsl:text>
         <!--Inserts unitid and a space if it exists in the markup.-->
         <xsl:if test="ead:unitid">
             <xsl:apply-templates select="ead:unitid"/>
