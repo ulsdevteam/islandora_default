@@ -139,12 +139,12 @@ function islandora_default_preprocess_html(&$vars) {
 
   // inspect the current URL -- see if this is an islandora object page
   if (strstr($_SERVER['REQUEST_URI'], '/islandora/object/')) {
-    $link = $_SERVER[HTTP_HOST] . $_SERVER['REQUEST_URI'];
+    $link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     // link must be updated if it contains "from_search/{skey}"
     if (strstr($link, '/from_search/')) {
       $link = substr($link, 0, strpos($link, '/from_search')) . '/viewer';
     }
-    
+
     $canonical_link = array(
       '#tag' => 'link', // The #tag is the html tag - <link />
       '#attributes' => array( // Set up an array of attributes inside the tag
