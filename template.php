@@ -145,7 +145,7 @@ function islandora_default_preprocess_html(&$vars) {
       $link = substr($link, 0, strpos($link, '/from_search')) . '/viewer';
     }
 
-    $protocol = ($_SERVER['HTTPS']) ? "https://" : "http://";
+    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ? "https://" : "http://";
     $href = $protocol . urldecode($link);
 
     $canonical_link = array(
