@@ -145,10 +145,13 @@ function islandora_default_preprocess_html(&$vars) {
       $link = substr($link, 0, strpos($link, '/from_search')) . '/viewer';
     }
 
+    $protocol = ($_SERVER['HTTPS']) ? "https://" : "http://";
+    $href = $protocol . urldecode($link);
+
     $canonical_link = array(
       '#tag' => 'link', // The #tag is the html tag - <link />
       '#attributes' => array( // Set up an array of attributes inside the tag
-        'href' => 'http://infost01-02.library.pitt.edu/islandora/object/pitt:31735067913057x',
+        'href' => $href,
         'rel' => 'canonical',
       ),
     );
