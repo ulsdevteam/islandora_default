@@ -136,27 +136,6 @@ function islandora_default_preprocess_html(&$vars) {
     ),
   );
   drupal_add_html_head($viewport, 'viewport');
-
-  // inspect the current URL -- see if this is an islandora object page
-  if (strstr($_SERVER['REQUEST_URI'], '/islandora/object/')) {
-    $link = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    // link must be updated if it contains "from_search/{skey}"
-    if (strstr($link, '/from_search/')) {
-      $link = substr($link, 0, strpos($link, '/from_search')) . '/viewer';
-    }
-
-    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']) ? "https://" : "http://";
-    $href = $protocol . urldecode($link);
-
-    $canonical_link = array(
-      '#tag' => 'link', // The #tag is the html tag - <link />
-      '#attributes' => array( // Set up an array of attributes inside the tag
-        'href' => $href,
-        'rel' => 'canonical',
-      ),
-    );
-    drupal_add_html_head($canonical_link, 'canonical_link');
-  }
 }
 
 function islandora_default_islandora_internet_archive_bookreader_book_info(array $variables) {
