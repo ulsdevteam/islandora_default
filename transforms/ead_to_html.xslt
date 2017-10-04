@@ -968,7 +968,7 @@
                    <xsl:text> </xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text>(Online pending)</xsl:text>
+                        <xsl:text>("</xsl:text><xsl:value-of select="@ns2:title"/><xsl:text>" online pending) </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
