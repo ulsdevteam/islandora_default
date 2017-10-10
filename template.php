@@ -78,7 +78,10 @@ function islandora_default_preprocess_islandora_pdf(&$variables) {
   $islandora_object = (isset($variables['islandora_object']) ? $variables['islandora_object'] : NULL);
   // PDF instead of OBJ if possible
   if (isset($islandora_object['PDF'])) {
-    $variables['islandora_content'] = l($variables['islandora_preview_img'], url("islandora/object/{$islandora_object->id}/datastream/PDF/view", array('absolute' => TRUE)), array('html' => TRUE));
+    $variables['islandora_content'] = l( (isset($variables['islandora_preview_img']) ? 
+        $variables['islandora_preview_img'] : 
+        (isset($islandora_object['TN_LARGE']) ? '<img src="/islandora/object/' . $islandora_object->id . '/datastream/TN_LARGE/view" alt="' . htmlspecialchars($islandora_object->label) . '">' : 'preview missing')), 
+      url("islandora/object/{$islandora_object->id}/datastream/PDF/view", array('absolute' => TRUE)), array('html' => TRUE));
   }
 }
 
