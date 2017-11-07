@@ -27,15 +27,6 @@
     <?php endif; ?>
   </div>
 
-<h2>How do I play the video in full screen mode with subtitles?</h2>
-  <ul>
-    <li>Click on the “full screen” button <img src="/sites/all/themes/islandora_default/images/full-screen.png" width="32" height="29" alt=""> in the lower right-hand corner of the video player. </li>
-    <li>Then, click the “CC” button. <img src="/sites/all/themes/islandora_default/images/cc.png" width="33" height="23" alt=""></li>
-    <li>Next,  click within the narrow bar <strong>below</strong> “captions off.”  <img src="/sites/all/themes/islandora_default/images/captions-off-white-bar.png" width="100" height="31" alt=""> </li>
-    <li>The subtitles will appear on the screen with the video.</li>
-  </ul>
-<p><em>Please note: We are working to improve functionality of the video player. </em></p>
-
   <div class="islandora-oralhistories-metadata">
     <?php print $description; ?>
     <?php if ($parent_collections): ?>
