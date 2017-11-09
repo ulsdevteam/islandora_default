@@ -630,6 +630,8 @@ dl.islandora-object-fields {
 }
 .islandora-newspaper-content-thumb-div {
 	float: left;
+        height: 96px;
+        min-height: 96px;
 	width: 24%;
         max-width: 24%;
 	text-align: center;
