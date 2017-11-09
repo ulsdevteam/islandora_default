@@ -618,14 +618,31 @@ dl.islandora-object-fields {
 
 /* _______ islandora-newspaper.tpl.php ______*/
 .newspaper-tiny-thumb {
-        float: right;
 }
 .islandora-newspaper-content .fieldset-wrapper {
 	margin-left: 0px !important;
 }
 .islandora-newspaper-content .fieldset-wrapper div {
-	clear: both;
 	padding: 1px;
+}
+.islandora-newspaper-content img {
+	display: inline-block !important;
+}
+.islandora-newspaper-content-thumb-div {
+	float: left;
+	width: 24%;
+        max-width: 24%;
+	text-align: center;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        margin: 2px;
+}
+body.no-sidebars .islandora-newspaper-content {
+	width: 99%;
+}
+.islandora-newspaper-content .vertical-tabs-list {
+    max-height: 300px;
+    overflow-y: scroll;
 }
 
 /* ________ Drupal/Islandora CSS overrides ________ */
