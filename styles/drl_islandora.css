@@ -643,8 +643,8 @@ body.no-sidebars .islandora-newspaper-content {
 	width: 99%;
 }
 .islandora-newspaper-content .vertical-tabs-list {
-    max-height: 300px;
-    overflow-y: scroll;
+   overflow-y: scroll;
+   max-height: 500px;   
 }
 
 /* ________ Drupal/Islandora CSS overrides ________ */
