@@ -204,6 +204,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_basic_image':
       case 'islandora_book_book':
       case 'islandora_pdf':
+      case 'islandora_newspaper_issue':
       case 'islandora_video':
         $variables['metadata_link'] = l(t("Go to item description"), "islandora/object/{$islandora_object->id}");
         if (count($variables['parent_collections'])) {
@@ -230,7 +231,6 @@ function islandora_default_preprocess(&$variables, $hook) {
       default:
         break;
     }
-
   }
 }
 
