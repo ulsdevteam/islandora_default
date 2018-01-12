@@ -363,6 +363,12 @@
             <xsl:apply-templates select="ead:container"/>
             <xsl:apply-templates select="ead:abstract"/> 
             <xsl:apply-templates select="ead:note"/>
+
+            <xsl:if test="/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:sponsor">
+                   <dt>Sponsor Note</dt>
+                   <dd><xsl:value-of select="/ead:ead/ead:eadheader/ead:filedesc/ead:titlestmt/ead:sponsor" /></dd>
+            </xsl:if>
+
         </dl>
             <xsl:apply-templates select="../ead:prefercite"/>
         <xsl:call-template name="returnTOC"/>
