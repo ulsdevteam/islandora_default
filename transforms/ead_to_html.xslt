@@ -333,6 +333,21 @@
             <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
         </xsl:choose>
     </xsl:template>
+
+    <!-- display the Extent value/s -->
+    <xsl:template match="ead:archdesc/ead:did/ead:physdesc">
+        <dt>Extent</dt>
+        <dd>
+        <xsl:for-each select="node()">
+            <xsl:value-of select="." />
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@unit" />
+            <xsl:text> </xsl:text>
+        </xsl:for-each>
+        </dd>
+    </xsl:template>
+
+
     <xsl:template match="ead:filedesc/ead:titlestmt/ead:titleproper/ead:num"><br/><xsl:apply-templates/></xsl:template>
     <xsl:template match="ead:archdesc/ead:did">
         <h3>
@@ -375,8 +390,9 @@
     </xsl:template>
 
     <!-- Template calls and formats the children of archdesc/did -->
+<!-- removed from logic: "ead:archdesc/ead:did/ead:physdesc | " -->
     <xsl:template match="ead:archdesc/ead:did/ead:repository | ead:archdesc/ead:did/ead:unittitle | ead:archdesc/ead:did/ead:unitid | ead:archdesc/ead:did/ead:origination 
-        | ead:archdesc/ead:did/ead:unitdate | ead:archdesc/ead:did/ead:physdesc | ead:archdesc/ead:did/ead:physloc 
+        | ead:archdesc/ead:did/ead:unitdate | ead:archdesc/ead:did/ead:physloc 
         | ead:archdesc/ead:did/ead:abstract | ead:archdesc/ead:did/ead:langmaterial | ead:archdesc/ead:did/ead:materialspec | ead:archdesc/ead:did/ead:container">
         <dt>
             <xsl:choose>
@@ -416,7 +432,7 @@
                                 </xsl:otherwise>
                             </xsl:choose>
                         </xsl:when>
-                        <xsl:when test="self::ead:physdesc">Extent</xsl:when>
+<!-- moved this heading output to "ead:archdesc/ead:did/ead:physdesc" template above :    <xsl:when test="self::ead:physdesc">Extent</xsl:when> -->
                         <xsl:when test="self::ead:abstract">Abstract</xsl:when>
                         <xsl:when test="self::ead:physloc">Location</xsl:when>
 <!-- TEMPORARILY suppress the display of the Language title - until the matching language node is populated correctly in order to display. 
