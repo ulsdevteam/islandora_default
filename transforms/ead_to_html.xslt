@@ -1702,11 +1702,17 @@
         <xsl:variable name="vLower" select="'abcdefghijklmnopqrstuvwxyz'"/>
         <xsl:variable name="vUpper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'"/>
         <!--Inserts the parent container level attribute, like "series", "subseries", etc -->
-        <xsl:if test="../@level != 'file' and ../@level != 'otherlevel' and ../@level != 'item'">
-            <xsl:variable name="level" select="../@level"/>
-            <xsl:value-of select="concat(translate(substring($level,1,1), $vLower, $vUpper),
-              substring($level, 2)
-             )"/>
+<!--        <xsl:if test="../@level != 'file' and ../@level != 'otherlevel' and ../@level != 'item'"> -->
+        <xsl:if test="../@level != 'file' and ../@level != 'item'">
+            <xsl:choose>
+                <xsl:when test="../@level='otherlevel'">
+                     <xsl:text>Section: </xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                    <xsl:variable name="level" select="../@level"/>
+                    <xsl:value-of select="concat(translate(substring($level,1,1), $vLower, $vUpper), substring($level, 2))"/>
+                </xsl:otherwise>          
+            </xsl:choose>
         </xsl:if>
 
         <xsl:text> </xsl:text>
