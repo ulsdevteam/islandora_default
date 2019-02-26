@@ -207,7 +207,7 @@ function islandora_default_preprocess(&$variables, $hook) {
       case 'islandora_newspaper_issue':
       case 'islandora_video':
         $variables['metadata_link'] = l(t("Go to item description"), "islandora/object/{$islandora_object->id}");
-        if (count($variables['parent_collections'])) {
+        if (array_key_exists('parent_collections', $variables) && is_array($variables['parent_collections']) && count($variables['parent_collections'])) {
           $site = islandora_default_get_site_from_config();
           $tmp_parent_collections = $variables['parent_collections'];
           foreach ($tmp_parent_collections as $k => $collection_object) { 
