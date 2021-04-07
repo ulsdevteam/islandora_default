@@ -283,16 +283,16 @@
                                     <xsl:apply-templates select="child::*/ead:head"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text>
+                                    <xsl:apply-templates select="child::*/ead:unittitle"/><xsl:text>&#160;</xsl:text>
                                     <xsl:value-of select="child::*/ead:unitdate"/>
                                 </xsl:otherwise>
                             </xsl:choose>
                         </a></dd>
                                     <xsl:for-each select="child::*[@level = 'subseries']">
                                       <dd class="extra-indent"><a><xsl:call-template name="tocLinks"/>
-                                        <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
-                                        <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                        <!-- <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text> -->
+                                        <xsl:apply-templates select="child::*/ead:unittitle"/><xsl:text>&#160;</xsl:text>
                                         <xsl:value-of select="child::*/ead:unitdate"/>
                                       </a></dd>
                                     </xsl:for-each>
@@ -1717,10 +1717,10 @@
 
         <xsl:text> </xsl:text>
         <!--Inserts unitid and a space if it exists in the markup.-->
-        <xsl:if test="ead:unitid">
+        <!-- <xsl:if test="ead:unitid">
             <xsl:apply-templates select="ead:unitid"/>
             <xsl:text>&#160;</xsl:text>
-        </xsl:if>
+        </xsl:if> -->
         <!--Inserts origination and a space if it exists in the markup.-->
         <xsl:if test="ead:origination">
             <xsl:apply-templates select="ead:origination"/>
