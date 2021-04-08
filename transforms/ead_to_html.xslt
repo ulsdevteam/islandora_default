@@ -1413,39 +1413,42 @@
                         </xsl:attribute>
                         <xsl:choose>
                             <xsl:when test="ead:did/ead:container">
-                            <td class="{$clevelMargin}">
-                            <xsl:choose>                                
-                                <xsl:when test="count(ead:did/ead:container) &lt; 1">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>5</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) =1">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>4</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) = 2">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>3</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) = 3">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>2</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:otherwise/>
-                            </xsl:choose>    
-                                <xsl:call-template name="anchor"/>
-                                <xsl:apply-templates select="ead:did" mode="dsc"/>
-                                <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-                            </td>
-                            <xsl:for-each select="descendant::ead:did[ead:container][1]/ead:container">    
-                                <td class="containerHeader">    
+                              <td class="{$clevelMargin}">
+                              <xsl:choose>                                
+                                  <xsl:when test="count(ead:did/ead:container) &lt; 1 or @level='subseries'">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>5</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 1 and not(@level='subseries')" >
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>4</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 2">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>3</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 3">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>2</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:otherwise/>
+                              </xsl:choose>    
+                              <xsl:call-template name="anchor"/>
+                              <xsl:apply-templates select="ead:did" mode="dsc"/>
+                              <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
+                              </td>
+                            
+                              <xsl:if test="not(@level='subseries')">
+                                <xsl:for-each select="descendant::ead:did[ead:container][1]/ead:container">
+                                  <td class="containerHeader">    
                                     <xsl:value-of select="@type"/><br/><xsl:value-of select="."/>       
-                                </td>    
-                            </xsl:for-each>
+                                  </td>
+                                </xsl:for-each>
+                              </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
                                 <td colspan="5" class="{$clevelMargin}">
