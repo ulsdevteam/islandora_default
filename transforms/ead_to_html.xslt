@@ -284,16 +284,18 @@
                                 </xsl:when>
                                 <xsl:otherwise>
                                     Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text>
-                                    <xsl:apply-templates select="child::*/ead:unittitle"/><xsl:text>&#160;</xsl:text>
-                                    <xsl:value-of select="child::*/ead:unitdate"/>
+                                    <xsl:apply-templates select="child::*/ead:unittitle"/>
+                                    <!-- <xsl:when test="child::*/ead:unitdate"> -->
+					<xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text><xsl:value-of select="child::*/ead:unitdate"/>
+				    <!-- </xsl:when> -->
                                 </xsl:otherwise>
                             </xsl:choose>
                         </a></dd>
                                     <xsl:for-each select="child::*[@level = 'subseries']">
                                       <dd class="extra-indent"><a><xsl:call-template name="tocLinks"/>
                                         <!-- <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text> -->
-                                        <xsl:apply-templates select="child::*/ead:unittitle"/><xsl:text>&#160;</xsl:text>
-                                        <xsl:value-of select="child::*/ead:unitdate"/>
+                                        <xsl:apply-templates select="child::*/ead:unittitle"/>
+					<xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text><xsl:value-of select="child::*/ead:unitdate"/>
                                       </a></dd>
                                     </xsl:for-each>
 
@@ -1718,7 +1720,6 @@
             </xsl:choose>
         </xsl:if>
 
-        <xsl:text> </xsl:text>
         <!--Inserts unitid and a space if it exists in the markup.-->
         <xsl:if test="ead:unitid[not(@audience = 'internal')]">
             <xsl:apply-templates select="ead:unitid[not(@audience = 'internal')]"/>
@@ -1738,9 +1739,9 @@
             <!--This code process the elements when unitdate is not a child of untititle-->
             <xsl:otherwise> 
                 <xsl:apply-templates select="ead:unittitle"/>
-                 <xsl:text>&#160;</xsl:text>
                  <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
-                     <xsl:apply-templates/>
+                     <xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text>
+		     <xsl:apply-templates/>
                      <xsl:text>&#160;</xsl:text>
                  </xsl:for-each>
                  <xsl:for-each select="ead:unitdate[@type = 'bulk']">
@@ -1751,7 +1752,7 @@
                      <xsl:text>&#160;</xsl:text>
                      <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
                          <xsl:apply-templates/>
-                         <xsl:text>&#160;</xsl:text>
+                         <xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text>
                      </xsl:for-each>
                      <xsl:for-each select="ead:unitdate[@type = 'bulk']">
                          (<xsl:apply-templates/>)
