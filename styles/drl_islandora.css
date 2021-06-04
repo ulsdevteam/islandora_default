@@ -561,6 +561,11 @@ html.js fieldset.collapsed .fieldset-legend, html.js fieldset.collapsible .field
 	margin-bottom: .4em;
 	}
 
+.ask-archivist {
+	font-weight: bold;
+	margin: 5px 0 10px -5px;
+	}
+
 /* ________ islandora-solr.tpl ________ */
 
 .islandora-solr-search-result {

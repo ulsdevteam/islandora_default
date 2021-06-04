@@ -27,6 +27,8 @@
       <li class="metadata-field"> <?php print implode('<br/>', $value['value']); ?> </li>
       <?php $row_field++; ?>
       <?php endforeach; ?>
+      <div class="ask-archivist"><li class="metadata-label"><a href="https://www.library.pitt.edu/ask-archivist"><img src="/sites/d
+igital/files/ask-archivist-sm.png"/>Suggest a Correction</a></li></div>
     </ul>
   </div>
 </fieldset>
