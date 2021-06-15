@@ -283,17 +283,19 @@
                                     <xsl:apply-templates select="child::*/ead:head"/>
                                 </xsl:when>
                                 <xsl:otherwise>
-                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
+                                    Series <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text>
                                     <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                    <xsl:value-of select="child::*/ead:unitdate"/>
+                                    <!-- <xsl:when test="child::*/ead:unitdate"> -->
+					<xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text><xsl:value-of select="child::*/ead:unitdate"/>
+				    <!-- </xsl:when> -->
                                 </xsl:otherwise>
                             </xsl:choose>
                         </a></dd>
                                     <xsl:for-each select="child::*[@level = 'subseries']">
                                       <dd class="extra-indent"><a><xsl:call-template name="tocLinks"/>
-                                        <xsl:value-of select="child::*/ead:unitid"/><xsl:text> </xsl:text>
+                                        <!-- <xsl:value-of select="child::*/ead:unitid"/><xsl:text>&#160;</xsl:text> -->
                                         <xsl:apply-templates select="child::*/ead:unittitle"/>
-                                        <xsl:value-of select="child::*/ead:unitdate"/>
+					<xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text><xsl:value-of select="child::*/ead:unitdate"/>
                                       </a></dd>
                                     </xsl:for-each>
 
@@ -1413,39 +1415,42 @@
                         </xsl:attribute>
                         <xsl:choose>
                             <xsl:when test="ead:did/ead:container">
-                            <td class="{$clevelMargin}">
-                            <xsl:choose>
-                                <xsl:when test="count(ead:did/ead:container) &lt; 1">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>5</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) =1">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>4</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) = 2">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>3</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:when test="count(ead:did/ead:container) = 3">
-                                    <xsl:attribute name="colspan">
-                                        <xsl:text>2</xsl:text>
-                                    </xsl:attribute>
-                                </xsl:when>
-                                <xsl:otherwise/>
-                            </xsl:choose>
-                                <xsl:call-template name="anchor"/>
-                                <xsl:apply-templates select="ead:did" mode="dsc"/>
-                                <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
-                            </td>
-                            <xsl:for-each select="descendant::ead:did[ead:container][1]/ead:container">
-                                <td class="containerHeader">
-                                    <xsl:value-of select="@type"/><br/><xsl:value-of select="."/>
-                                </td>
-                            </xsl:for-each>
+                              <td class="{$clevelMargin}">
+                              <xsl:choose>                                
+                                  <xsl:when test="count(ead:did/ead:container) &lt; 1 or @level='subseries'">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>5</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 1 and not(@level='subseries')" >
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>4</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 2">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>3</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:when test="count(ead:did/ead:container) = 3">
+                                      <xsl:attribute name="colspan">
+                                          <xsl:text>2</xsl:text>
+                                      </xsl:attribute>
+                                  </xsl:when>
+                                  <xsl:otherwise/>
+                              </xsl:choose>    
+                              <xsl:call-template name="anchor"/>
+                              <xsl:apply-templates select="ead:did" mode="dsc"/>
+                              <xsl:apply-templates select="child::*[not(ead:did) and not(self::ead:did)]"/>
+                              </td>
+                            
+                              <xsl:if test="not(@level='subseries')">
+                                <xsl:for-each select="descendant::ead:did[ead:container][1]/ead:container">
+                                  <td class="containerHeader">    
+                                    <xsl:value-of select="@type"/><br/><xsl:value-of select="."/>       
+                                  </td>
+                                </xsl:for-each>
+                              </xsl:if>
                             </xsl:when>
                             <xsl:otherwise>
                                 <td colspan="5" class="{$clevelMargin}">
@@ -1715,10 +1720,9 @@
             </xsl:choose>
         </xsl:if>
 
-        <xsl:text> </xsl:text>
         <!--Inserts unitid and a space if it exists in the markup.-->
-        <xsl:if test="ead:unitid">
-            <xsl:apply-templates select="ead:unitid"/>
+        <xsl:if test="ead:unitid[not(@audience = 'internal')]">
+            <xsl:apply-templates select="ead:unitid[not(@audience = 'internal')]"/>
             <xsl:text>&#160;</xsl:text>
         </xsl:if>
         <!--Inserts origination and a space if it exists in the markup.-->
@@ -1735,9 +1739,9 @@
             <!--This code process the elements when unitdate is not a child of untititle-->
             <xsl:otherwise>
                 <xsl:apply-templates select="ead:unittitle"/>
-                 <xsl:text>&#160;</xsl:text>
                  <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
-                     <xsl:apply-templates/>
+                     <xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text>
+		     <xsl:apply-templates/>
                      <xsl:text>&#160;</xsl:text>
                  </xsl:for-each>
                  <xsl:for-each select="ead:unitdate[@type = 'bulk']">
@@ -1748,7 +1752,7 @@
                      <xsl:text>&#160;</xsl:text>
                      <xsl:for-each select="ead:unitdate[not(self::ead:unitdate[@type='bulk'])]">
                          <xsl:apply-templates/>
-                         <xsl:text>&#160;</xsl:text>
+                         <xsl:text>&#44;</xsl:text><xsl:text>&#160;</xsl:text>
                      </xsl:for-each>
                      <xsl:for-each select="ead:unitdate[@type = 'bulk']">
                          (<xsl:apply-templates/>)
