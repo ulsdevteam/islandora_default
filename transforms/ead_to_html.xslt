@@ -992,7 +992,7 @@
                    <xsl:text> </xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
-                        <xsl:text>("</xsl:text><xsl:value-of select="@xlink:title"/><xsl:text>" online pending) </xsl:text>
+                        <xsl:text>("</xsl:text><xsl:value-of select="@xlink:title"/><xsl:text>" Online pending) </xsl:text>
                     </xsl:otherwise>
                 </xsl:choose>
             </xsl:when>
@@ -1531,24 +1531,20 @@
                                         </xsl:for-each>
                                     </tr>
                                 </xsl:for-each>
-<!--                                <xsl:if test="descendant-or-self::ead:dao">
+                                    <xsl:for-each select="descendant-or-self::ead:dao[@xlink:href]">
                                     <tr>
                                         <td colspan="6">
-                                    <xsl:for-each select="descendant-or-self::ead:dao">
 
                                                <a>
                                                     <xsl:attribute name="href">
-                                                        <xsl:if test="string(number(@xlink:href)) != 'NaN'">
-                                                            <xsl:text>/islandora/object/pitt:</xsl:text>
-                                                        </xsl:if>
+                                                        <xsl:text>/islandora/object/pitt:</xsl:text>
                                                         <xsl:value-of select="@xlink:href" />
                                                     </xsl:attribute>
-                                                    <xsl:value-of select="ead:daodesc"/>
-                                                </a> | <xsl:call-template name="containers-attributes"/>
-                                    </xsl:for-each>
+                                                    <xsl:value-of select="." /><xsl:text> (Online)</xsl:text>
+                                                </a>
                                         </td>
                                     </tr>
-                                </xsl:if> -->
+                                    </xsl:for-each>
                             </table>
 
 </xsl:if>
